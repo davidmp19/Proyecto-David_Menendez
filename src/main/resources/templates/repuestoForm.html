@@ -24,7 +24,6 @@
 			  <div class="card-body">
 				<h5 class="card-title">
 					<input type="text" th:field="*{nombre}"/></h5>
-					<p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre Error</p>
 					
 				<p class="card-text">
 					<ul class="list-group">

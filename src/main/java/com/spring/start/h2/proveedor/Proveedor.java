@@ -17,9 +17,10 @@ public class Proveedor {
 	@Id
 	private String dni;
 	
-	@Size(min=4, max=15, message="pon los caracteres adecuados pinga")
+	@Size(min=4, max=15, message="minimo 4 caracteres y maximo 15")
 	private String nombre;
 	
+	@Size(min=5, max=50, message="La dirección debe tener menos de 100 caracteres")
 	private String direccion;
 	
 
