@@ -1,0 +1,72 @@
+package com.spring.start.h2.proveedor;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.spring.start.h2.repuesto.Repuesto;
+import com.spring.start.h2.suministra.Suministra;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Size;
+
+@Entity
+public class Proveedor {
+
+	@Id
+	private String dni;
+	
+	@Size(min=4, max=15, message="pon los caracteres adecuados pinga")
+	private String nombre;
+	
+	private String direccion;
+	
+
+	@OneToMany(
+			targetEntity=Suministra.class,
+			mappedBy="proveedor",
+			cascade = CascadeType.ALL)
+	private Set<Repuesto> repuestos = new HashSet<Repuesto>();
+
+	@OneToMany(
+			targetEntity=Suministra.class,
+			mappedBy="proveedor")
+	private Set<Suministra> suministros = new HashSet<>();
+
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	public Set<Repuesto> getRepuestos() {
+		return repuestos;
+	}
+	public void setRepuestos(Set<Repuesto> repuestos) {
+		this.repuestos = repuestos;
+	}
+	@Override
+	public String toString() {
+		return "Proveedor [dni=" + dni + ", nombre=" + nombre + ", direccion=" + direccion + ", repuestos=" + repuestos
+				+ "]";
+	}
+	
+
+
+
+	
+	
+}
