@@ -20,17 +20,22 @@
 		
 		<form th:action="@{~/proveedor/save}" th:object="${proveedor}" method="post" >
 			<div class="card bg-light mb-3" style="max-width: 18rem;">
-			  <div class="card-header"><input readonly type="text" th:field="*{dni}" size=2/></div>
+			  <div class="card-header">
+				  Dni:
+				  <input type="text" th:field="*{dni}" size=10/>
+				  </div>
 			  <div class="card-body">
-				<h5 class="card-title">
-					<input type="text" th:field="*{nombre}" size=10/></h5>
-					<p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre Error</p>
-					
 				<p class="card-text">
 					<ul class="list-group">
+					 <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+						 Nombre:
+							<input type="text" th:field="*{nombre}" size=10/></h5>
+							<p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Introduzca un nombre válido</p>
+						 </li>
 					  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
 						Direccion:
-						<input type="text" th:field="*{direccion}">
+						<input type="text" th:field="*{direccion}" size=10>
+						<p th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}">Introduzca un nombre válido</p>
 					  </li>
 					</ul>
 				</p>

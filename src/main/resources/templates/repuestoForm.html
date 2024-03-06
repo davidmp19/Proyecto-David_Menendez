@@ -22,22 +22,26 @@
 			<div class="card bg-light mb-3" style="max-width: 18rem;">
 			  <div class="card-header"><input readonly type="text" th:field="*{id}" size=2/></div>
 			  <div class="card-body">
-				<h5 class="card-title">
-					<input type="text" th:field="*{nombre}"/></h5>
-					
 				<p class="card-text">
 					<ul class="list-group">
+						<li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
+							Nombre:
+							<input type="text" th:field="*{nombre}" size=10>
+							<p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Introduzca un nombre válido</p>
+							</li>
 					  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
 						Peso:
-						<input type="text" th:field="*{peso}">
+						<input type="text" th:field="*{peso}" size=10>
+						<p th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}">Introduzca un nombre válido</p>
 					  </li>
 					  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
 						Fecha
-						 	<input type="text" th:field="*{fecha}">
+						 	<input type="text" th:field="*{fecha}" size=10>
 					  </li>
 					   <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
 						Unidades
-						 	<input type="text" th:field="*{unidades}">
+						 	<input type="text" th:field="*{unidades}" size=10>
+						 	<p th:if="${#fields.hasErrors('unidades')}" th:errors="*{unidades}">Introduzca un nombre válido</p>
 					  </li>
 					   <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
 						Marca coche

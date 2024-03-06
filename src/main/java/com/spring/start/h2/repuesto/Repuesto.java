@@ -11,7 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,7 +37,6 @@ public class Repuesto {
 	@Max(value = 2000, message = "El peso debe ser como máximo 2000")
 	private int peso;	
 	
-	@Past(message = "La fecha debe estar en el pasado")
 	private String fecha;
 	
 	@Min(value = 0, message = "Las unidades deben ser un número positivo")

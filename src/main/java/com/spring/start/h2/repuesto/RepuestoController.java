@@ -108,8 +108,8 @@ public class RepuestoController {
 		ModelAndView model = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			model.setViewName("repuestoForm");
-			model.addObject("repuesto", new Repuesto());
-			model.addObject("coches", cocheDAO.findAll());
+			model.addObject("repuesto", repuesto);
+			model.addObject("coches", cocheDAO.findAll());	
 			return model;
 		}
 	    repuestoDAO.save(repuesto);
@@ -134,10 +134,6 @@ public class RepuestoController {
 			model.addObject("repuestoNuevo", repuestoNuevo);
 			model.setViewName("repuestos");
 		
-		
-
-		
-
 		return model;
 	}
 }
