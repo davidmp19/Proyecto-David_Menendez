@@ -107,7 +107,7 @@ public class ProveedorController {
 	@DeleteMapping("/proveedor/{dni}/repuesto/{id}")
 	public ResponseEntity<String> eliminarRepuestoDeProveedor(
 			@PathVariable String dni, 
-			@PathVariable int id) {
+			@PathVariable String id) {
 		 Proveedor proveedor = proveedorDAO.findByDni(dni);
 		    
 		    if (proveedor != null) {

@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface SuministraDAO extends CrudRepository<Suministra, Long>{
 	
-	 List<Suministra> findByRepuestoId(int id);
+	 List<Suministra> findByRepuestoId(String id);
 	 
 	 List<Suministra> findByProveedorDni(String dni);
 	 
-	 Optional<Suministra> findByProveedorDniAndRepuestoId(String dni, int id);
+	 Optional<Suministra> findByProveedorDniAndRepuestoId(String dni, String id);
 	 
 	 @Query("SELECT COUNT(su) > 0 FROM Suministra su WHERE su.repuesto.nombre = :nombreRepu AND su.proveedor.nombre = :nombreProv")
 	    boolean vinculados(@Param("nombreRepu") String nombreRepu,@Param("nombreProv") String nombreProv);

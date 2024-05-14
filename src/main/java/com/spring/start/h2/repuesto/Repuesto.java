@@ -3,8 +3,6 @@ package com.spring.start.h2.repuesto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -27,17 +25,16 @@ public class Repuesto {
 
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private String id;
 	
-	@Size(min=4, max=15, message="minimo 4 caracteres y maximo 15")
+	@Size(min=4, max=15, message="minimo 2 caracteres y maximo 30")
 	private String nombre;
 	
 	@Min(value = 1, message = "El peso debe ser como mínimo 1")
 	@Max(value = 2000, message = "El peso debe ser como máximo 2000")
 	private int peso;	
 	
-	private String fecha;
+	private String descripcion;
 	
 	@Min(value = 0, message = "Las unidades deben ser un número positivo")
 	private int unidades;	
@@ -73,11 +70,11 @@ public class Repuesto {
 		this.suministros = suministros;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -97,12 +94,12 @@ public class Repuesto {
 		this.peso = peso;
 	}
 
-	public String getFecha() {
-		return fecha;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 
@@ -124,7 +121,7 @@ public class Repuesto {
 
 	@Override
 	public String toString() {
-		return "Repuesto [id=" + id + ", nombre=" + nombre + ", peso=" + peso + ", fecha=" + fecha + ", unidades="
+		return "Repuesto [id=" + id + ", nombre=" + nombre + ", peso=" + peso + ", descripcion=" + descripcion + ", unidades="
 				+ unidades +"]";
 	}
 

@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.start.h2.coche.CocheDAO;
+import com.spring.start.h2.suministra.Suministra;
 import com.spring.start.h2.suministra.SuministraDAO;
 
 import jakarta.validation.Valid;
 
 
 
-
-
-@Controller
+@Controller    
 public class RepuestoController {
 	@Autowired
 	RepuestoDAO repuestoDAO;
@@ -55,17 +55,17 @@ public class RepuestoController {
 	
 	@GetMapping("/repuestos/{id}")
 	public ModelAndView getRepuestoPorId(
-			@PathVariable long id) {
+			@PathVariable String id) {
 		Repuesto repuesto = repuestoDAO.findById(id).get();
 		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("repuesto");
 		model.addObject("repuesto", repuesto);
 		
-		return model;
-	}
-	@GetMapping("/repuesto/edit/{id}")
-	public ModelAndView editPlan(@PathVariable long id) {
+		return model; 
+	} 
+	@PostMapping("/repuesto/edit/{id}")
+	public ModelAndView editPlan(@PathVariable String id) {
 				
 		ModelAndView model = new ModelAndView();
 		
@@ -89,11 +89,11 @@ public class RepuestoController {
 		model.setViewName("repuestoForm");
 		model.addObject("repuesto", new Repuesto());
 		model.addObject("coches", cocheDAO.findAll());
-		return model;
+		return model;  
 	}	
 	
 	@GetMapping("/repuestos/del/{id}")
-	public ModelAndView delRepuesto(@PathVariable long id) {
+	public ModelAndView delRepuesto(@PathVariable String id) {
 		repuestoDAO.deleteById(id);
 		
 		ModelAndView model = new ModelAndView();
@@ -118,8 +118,17 @@ public class RepuestoController {
 		return model;
 		
 	}	 
+	@GetMapping("/buscarRepuesto")
+	public ModelAndView buscarRepuesto(@RequestParam("nombre") String nombre) {
+	    Repuesto repuesto = repuestoDAO.findByNombre(nombre);
+
+	        ModelAndView model = new ModelAndView();
+	        model.setViewName("redirect:/repuestos/"+repuesto.getId());
+	        return model;
+	        }
+	 
 	@GetMapping("repuesto/nuevo/{id}")
-	public ModelAndView nuevoRepuesto(@PathVariable long id) {
+	public ModelAndView nuevoRepuesto(@PathVariable String id) {
 
 		ModelAndView model = new ModelAndView();
 
