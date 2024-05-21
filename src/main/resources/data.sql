@@ -1,24 +1,24 @@
 
 
-INSERT INTO Coche (marca, modelo) VALUES ('ford', 'fiesta');
-INSERT INTO Coche (marca, modelo) VALUES ('porsche', '911 carrera');
-INSERT INTO Coche (marca, modelo) VALUES ('ferrari', 'testarrosa');
-INSERT INTO Coche (marca, modelo) VALUES ('vw', 'polo');
-INSERT INTO Coche (marca, modelo) VALUES ('mercedes', 'e55amg');
-INSERT INTO Coche (marca, modelo) VALUES ('mercedes', 'clk');
-INSERT INTO Coche (marca, modelo) VALUES ('ferrari', 'italia 458');
-INSERT INTO Coche (marca, modelo) VALUES ('lamborghini', 'urus');
+INSERT INTO Coche (id,marca, modelo) VALUES ('12345A','ford', 'fiesta');
+INSERT INTO Coche (id,marca, modelo) VALUES ('12345B','porsche', '911 carrera');
+INSERT INTO Coche (id,marca, modelo) VALUES ('12345C','ferrari', 'testarrosa');
+INSERT INTO Coche (id,marca, modelo) VALUES ('12345D','vw', 'polo');
+INSERT INTO Coche (id,marca, modelo) VALUES ('12345E','mercedes', 'e55amg');
+INSERT INTO Coche (id,marca, modelo) VALUES ('12345F','mercedes', 'clk');
+INSERT INTO Coche (id,marca, modelo) VALUES ('12345G','ferrari', 'italia 458');
+INSERT INTO Coche (id,marca, modelo) VALUES ('12345H','lamborghini', 'urus');
 
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('A123456789A','Neumáticos', 10, 'Ruedas',10,'1');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('B123456789B','repuesto2', 15, '27/03/2016',20,'2');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('C123456789C','repuesto3', 15, '28/03/2016',30,'3');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('D123456789D','repuesto4', 20, '29/03/2016',40,'4');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('E123456789E','repuesto5', 25, '30/03/2016',50,'5');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('F123456789F','repuesto6', 10, '27/03/2016',10,'6');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('G123456789G','repuesto7', 15, '27/03/2016',20,'7');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('H123456789H','repuesto8', 15, '28/03/2016',30,'8');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('I123456789I','repuesto9', 20, '29/03/2016',40,'1');
-INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('J123456789J','repuesto10', 25, '30/03/2016',50,'2');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('A123456789A','Neumáticos', 10, 'Ruedas',10,'12345A');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('B123456789B','repuesto2', 15, '27/03/2016',20,'12345B');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('C123456789C','repuesto3', 15, '28/03/2016',30,'12345C');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('D123456789D','repuesto4', 20, '29/03/2016',40,'12345D');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('E123456789E','repuesto5', 25, '30/03/2016',50,'12345E');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('F123456789F','repuesto6', 10, '27/03/2016',10,'12345F');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('G123456789G','repuesto7', 15, '27/03/2016',20,'12345G');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('H123456789H','repuesto8', 15, '28/03/2016',30,'12345H');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('I123456789I','repuesto9', 20, '29/03/2016',40,'12345A');
+INSERT INTO Repuesto (id,nombre, peso, descripcion,unidades,FK_COCHE) VALUES ('J123456789J','repuesto10', 25, '30/03/2016',50,'12345B');
 
 
 

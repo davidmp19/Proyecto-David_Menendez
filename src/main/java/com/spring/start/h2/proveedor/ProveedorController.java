@@ -36,7 +36,7 @@ public class ProveedorController {
 	public ModelAndView proveedores() {
 
 		ModelAndView model = new ModelAndView();
-		model.setViewName("proveedores");
+		model.setViewName("proveedores/proveedores");
 		List<Proveedor> listaProveedores = (List<Proveedor>)proveedorDAO.findAll();
 		
 		model.addObject("listaProveedores", listaProveedores);
@@ -50,7 +50,7 @@ public class ProveedorController {
 		Proveedor proveedor = proveedorDAO.findById(dni).get();
 		
 		ModelAndView model = new ModelAndView();
-		model.setViewName("proveedor");
+		model.setViewName("proveedores/proveedor");
 		model.addObject("proveedor", proveedor);
 		
 		return model;
@@ -64,7 +64,7 @@ public class ProveedorController {
 		if(pro.isPresent()) {
 			
 			model.addObject("proveedor", pro.get());
-			model.setViewName("proveedorForm");
+			model.setViewName("proveedores/proveedorForm");
 		}
 		else model.setViewName("redirect:/proveedores");	
 		
@@ -76,7 +76,7 @@ public class ProveedorController {
 				
 
 		ModelAndView model = new ModelAndView();
-		model.setViewName("proveedorForm");
+		model.setViewName("proveedores/proveedorForm");
 		model.addObject("proveedor", new Proveedor());
 		return model;
 	}	
@@ -90,7 +90,7 @@ public class ProveedorController {
 		model.setViewName("redirect:/proveedores");
 		
 		return model;
-	}	
+	}	 
 	
 	@GetMapping("/proveedor/{dni}/repuesto")
 	public Set<Repuesto> obtenerProveedoresDeRepuesto(@PathVariable String dni) {
@@ -126,7 +126,7 @@ public class ProveedorController {
 			BindingResult bindingResult) {	
 		ModelAndView model = new ModelAndView();
 		if(bindingResult.hasErrors()) {
-			model.setViewName("proveedorForm");
+			model.setViewName("proveedores/proveedorForm");
 			model.addObject("proveedor", new Proveedor());
 			return model;
 		}
@@ -149,7 +149,7 @@ public class ProveedorController {
 			model.addObject("proveedor", new Proveedor());
 			model.addObject("proveedor", proveedor);
 			model.addObject("proveedorNuevo", proveedorNuevo);
-			model.setViewName("proveedor");
+			model.setViewName("proveedores/proveedor");
 		
 		
 

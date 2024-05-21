@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.start.h2.proveedor.ProveedorDAO;
 import com.spring.start.h2.repuesto.Repuesto;
 import com.spring.start.h2.repuesto.RepuestoDAO;
-
+ 
 @Controller
 public class SuministraController {
 	
@@ -30,7 +30,7 @@ public class SuministraController {
 	public ModelAndView getSuministra() {
 
 		ModelAndView model = new ModelAndView();
-		model.setViewName("suministra");
+		model.setViewName("suministra/suministra");
 		List<Suministra> listaSuministra = (List<Suministra>)suministraDAO.findAll();
 		model.addObject("listaSuministra", listaSuministra);
 		
@@ -41,7 +41,7 @@ public class SuministraController {
 	public ModelAndView suministrar() {
 				
 		ModelAndView model = new ModelAndView();
-		model.setViewName("suministraForm");
+		model.setViewName("suministra/suministraForm");
 		model.addObject("suministra", new Suministra());
 		
 		 List<Repuesto> repuestosNoVinculados = repuestoDAO.findRepuestosNoVinculados();
@@ -60,8 +60,6 @@ public class SuministraController {
 		
 		
 		ModelAndView model = new ModelAndView();
-		
-		
 		Optional<Suministra> suministraOptional = suministraDAO.findById(id);	
 		if (suministraOptional.isPresent()) {
 	        Suministra suministra = suministraOptional.get();

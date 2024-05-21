@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.start.h2.coche.CocheDAO;
-import com.spring.start.h2.suministra.Suministra;
 import com.spring.start.h2.suministra.SuministraDAO;
 
 import jakarta.validation.Valid;
@@ -31,7 +30,7 @@ public class RepuestoController {
 	SuministraDAO suministraDAO;
 	
 	@Autowired
-	CocheDAO cocheDAO;
+	CocheDAO cocheDAO; 
 	
 	@GetMapping("/")
 	public ModelAndView inicio() {
@@ -40,12 +39,12 @@ public class RepuestoController {
 		model.setViewName("index");
 
 		return model;
-	}
+	} 
 	@GetMapping("/repuestos")
 	public ModelAndView repuesto() {
 
 		ModelAndView model = new ModelAndView();
-		model.setViewName("repuestos");
+		model.setViewName("repuestos/repuestos");
 		List<Repuesto> listaRepuestos = (List<Repuesto>)repuestoDAO.findAll();
 		
 		model.addObject("listaRepuestos", listaRepuestos);
@@ -59,13 +58,13 @@ public class RepuestoController {
 		Repuesto repuesto = repuestoDAO.findById(id).get();
 		
 		ModelAndView model = new ModelAndView();
-		model.setViewName("repuesto");
+		model.setViewName("repuestos/repuesto");
 		model.addObject("repuesto", repuesto);
 		
 		return model; 
 	} 
-	@PostMapping("/repuesto/edit/{id}")
-	public ModelAndView editPlan(@PathVariable String id) {
+	@GetMapping("/repuesto/edit/{id}")
+	public ModelAndView editRepuesto(@PathVariable String id) {
 				
 		ModelAndView model = new ModelAndView();
 		
@@ -74,7 +73,7 @@ public class RepuestoController {
 			
 			model.addObject("repuesto", repu.get());
 			model.addObject("coches", cocheDAO.findAll());
-			model.setViewName("repuestoForm");
+			model.setViewName("repuestos/repuestoForm");
 		}
 		else model.setViewName("redirect:/respuestos");	
 		
@@ -86,7 +85,7 @@ public class RepuestoController {
 				
 
 		ModelAndView model = new ModelAndView();
-		model.setViewName("repuestoForm");
+		model.setViewName("repuestos/repuestoForm");
 		model.addObject("repuesto", new Repuesto());
 		model.addObject("coches", cocheDAO.findAll());
 		return model;  
@@ -107,7 +106,7 @@ public class RepuestoController {
 			BindingResult bindingResult) {	
 		ModelAndView model = new ModelAndView();
 		if(bindingResult.hasErrors()) {
-			model.setViewName("repuestoForm");
+			model.setViewName("repuestos/repuestoForm");
 			model.addObject("repuesto", repuesto);
 			model.addObject("coches", cocheDAO.findAll());	
 			return model;
@@ -119,13 +118,13 @@ public class RepuestoController {
 		
 	}	 
 	@GetMapping("/buscarRepuesto")
-	public ModelAndView buscarRepuesto(@RequestParam("nombre") String nombre) {
-	    Repuesto repuesto = repuestoDAO.findByNombre(nombre);
-
+	public ModelAndView buscarRepuesto(@RequestParam("id") String id) {
+	    Optional<Repuesto> repuesto = repuestoDAO.findById(id);
+	    	Repuesto repuestoBuscado =repuesto.get();
 	        ModelAndView model = new ModelAndView();
-	        model.setViewName("redirect:/repuestos/"+repuesto.getId());
+	        model.setViewName("redirect:/repuestos/"+repuestoBuscado.getId());
 	        return model;
-	        }
+	        } 
 	 
 	@GetMapping("repuesto/nuevo/{id}")
 	public ModelAndView nuevoRepuesto(@PathVariable String id) {
@@ -135,13 +134,13 @@ public class RepuestoController {
 		List<Repuesto> repuestos = (List<Repuesto>) repuestoDAO.findAll();
 
 		Repuesto repuestoNuevo = repuestoDAO.findById(id).get();
-
+ 
 	
 			model.addObject("repuesto", new Repuesto());
 			model.addObject("coches", cocheDAO.findAll());
 			model.addObject("repuestos", repuestos);
 			model.addObject("repuestoNuevo", repuestoNuevo);
-			model.setViewName("repuestos");
+			model.setViewName("repuestos/repuestos");
 		
 		return model;
 	}

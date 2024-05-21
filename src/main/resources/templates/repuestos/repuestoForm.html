@@ -20,7 +20,7 @@
 		
 		<form th:action="@{~/repuesto/save}" th:object="${repuesto}" method="post" >
 			<div class="card bg-light mb-3" style="max-width: 18rem;">
-			  <div class="card-header"><input readonly type="text" th:field="*{id}" size=2/></div>
+			  <div class="card-header"><input type="text" th:field="*{id}" size=10/></div>
 			  <div class="card-body">
 				<p class="card-text">
 					<ul class="list-group">
@@ -35,8 +35,8 @@
 						<p th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}">Introduzca un nombre válido</p>
 					  </li>
 					  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-						Fecha
-						 	<input type="text" th:field="*{fecha}" size=10>
+						Descripcion
+						 	<input type="text" th:field="*{descripcion}" size=10>
 					  </li>
 					   <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
 						Unidades

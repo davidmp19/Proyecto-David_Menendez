@@ -88,50 +88,46 @@
         <table class="table table-sm table-hover">
           <thead>
             <tr>
-              <th scope="col">Codigo Referencia</th>
-              <th scope="col">NOMBRE</th>
-              <th scope="col">DESCRIPCION</th>
-              <th scope="col">Marca coche</th>
+              <th scope="col">Codigo</th>
+              <th scope="col">MARCA</th>
+              <th scope="col">MODELO</th>
               <th scope="col">X</th>
             </tr>
           </thead>
           <tbody>
-		   <th:block th:if="${#lists.isEmpty(listaRepuestos)}">
+		   <th:block th:if="${#lists.isEmpty(listaCoches)}">
                   <tr>
-                      <td colspan="7">No hay repuestos disponibles.</td>
+                      <td colspan="7">No hay coches disponibles.</td>
                   </tr>
             </th:block>
-            <tr th:each="repuesto: ${listaRepuestos}">
+            <tr th:each="coche: ${listaCoches}">
               <th scope="row">
-                <span th:text="${repuesto.id}"></span>
+                <a th:href="@{~/coches/{id}(id = ${coche.id})}" th:text="${coche.id}"></a>
               </th>
               <td>
-                <a th:href="@{~/repuestos/{id}(id = ${repuesto.id})}" th:text="${repuesto.nombre}"></a>
-              </td>
-              <td>
-                <span th:text="${repuesto.descripcion}"></span>
+                <span th:text="${coche.marca}"></span>
               </td>
                <td>
-                <span th:text="${repuesto.coche.marca}"></span>
+                <span th:text="${coche.modelo}"></span>
               </td>
               <td>
                 <a
                   class="btn btn-danger"
-                  th:href="@{/repuestos/del/{id}(id = ${repuesto.id})}"
+                  th:href="@{/coches/del/{id}(id = ${coche.id})}"
                 >Eliminar</a>
               </td>
             </tr>
           
           </tbody>
         </table>  
-        <div th:if="${#lists.isEmpty(listaRepuestos)}">
-          <a th:href="@{~/repuesto/add}" class="btn btn-primary">Agregar Repuesto</a>
+        <div th:if="${#lists.isEmpty(listaCoches)}">
+          <a th:href="@{~/coche/add}" class="btn btn-primary">Agregar Coche</a>
         </div>
         </div>
        <div class="text-right">
-        <div class="col-1" th:if="!${#lists.isEmpty(listaRepuestos)}">
+        <div class="col-1" th:if="!${#lists.isEmpty(listaCoches)}">
 			<a class="badge badge-pill badge-success"
-					th:href="@{~/repuesto/add}">Añadir</a>
+					th:href="@{~/coche/add}">Añadir</a>
 		</div>
       
         

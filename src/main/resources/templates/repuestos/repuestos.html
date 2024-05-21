@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Bootstrap CSS -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title></title>
+</head>
+<style>
+  :root {
+    --fondo: white;
+    --fondoMenu: rgb(145, 189, 189);
+    --fondoGris: gray;
+  }
+  
+  [data-theme="light"] {
+    --fondo: white;
+    --fondoMenu: rgb(145, 189, 189);
+    --fondoGris: gray;
+  }
+  
+  [data-theme="dark"] {
+    --fondo: black;
+    --fondoMenu: rgb(145, 189, 189);
+    --fondoGris: rgb(40, 36, 36);
+  }
+  body{
+    background-color: var(--fondoGris);
+  }
+  .container{
+	   background-color: var(--fondoGris);
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--fondoMenu);
+    transition: .4s;  
+    border-radius: 34px;
+  }
+  
+  .switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--fondo);
+    transition: .4s;  
+    border-radius: 50%;
+  }
+  
+  .switch input:checked + .slider {
+    background-color: var(--fondoMenu);
+  }
+  
+  .switch input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  </style>
+<body> 
+	
+<div class="row" th:replace="~{menu :: menuSuperior}"></div>
+	
+  <div class="container">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th scope="col" style="background-color: gray">Codigo Referencia</th>
+              <th scope="col" style="background-color: gray">NOMBRE</th>
+              <th scope="col" style="background-color: gray">DESCRIPCION</th>
+              <th scope="col" style="background-color: gray">Marca coche</th>
+              <th scope="col" style="background-color: gray">X</th>
+            </tr>
+          </thead>
+          <tbody>
+		   <th:block th:if="${#lists.isEmpty(listaRepuestos)}">
+                  <tr>
+                      <td colspan="7">No hay repuestos disponibles.</td>
+                  </tr>
+            </th:block>
+            <tr th:each="repuesto: ${listaRepuestos}">
+              <th scope="row" style="background-color: gray">
+                <a th:href="@{~/repuestos/{id}(id = ${repuesto.id})}" th:text="${repuesto.id}"></a>
+              </th>
+              <td style="background-color: gray">
+                <span th:text="${repuesto.nombre}"></span>
+              </td>
+              <td style="background-color: gray">
+                <span th:text="${repuesto.descripcion}"></span>
+              </td>
+               <td style="background-color: gray">
+                <span th:text="${repuesto.coche.modelo}"></span>
+              </td>
+              <td style="background-color: gray">
+                <a
+                  class="btn btn-danger"
+                  th:href="@{/repuestos/del/{id}(id = ${repuesto.id})}"
+                >Eliminar</a>
+              </td>
+            </tr>
+          
+          </tbody>
+        </table>  
+        <div th:if="${#lists.isEmpty(listaRepuestos)}">
+          <a th:href="@{~/repuesto/add}" class="btn btn-primary">Agregar Repuesto</a>
+        </div>
+        </div>
+       <div class="text-right">
+        <div class="col-1" th:if="!${#lists.isEmpty(listaRepuestos)}">
+			<a class="badge badge-pill badge-success"
+					th:href="@{~/repuesto/add}">Añadir</a>
+		</div>
+      
+        
+      </div>
+    </div>
+  </div>
+
+ <script src="../static/js/toggle.js"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

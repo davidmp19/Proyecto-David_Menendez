@@ -15,30 +15,20 @@
 	    </div>
 		
 	    <div class="col col-md-4">
-		<h1>Repuesto</h1>
+		<h1>Coche</h1>
 			<div class="card bg-light mb-3" style="max-width: 18rem;">
 			  <div class="card-header">
-				  	<span th:text="${repuesto.id}" ></span>
+				  	<span th:text="${coche.id}" ></span>
 			  </div>
 			  <div class="card-body">
-				<h5 class="card-title"><span th:text="${repuesto.nombre}" ></span></h5>
 				<p class="card-text">
 					<ul class="list-group">
 					  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-						Peso: <span th:text="${repuesto.peso}" ></span>
+						Marca: <span th:text="${coche.marca}" ></span>
 					  </li>
 					  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-						Fecha: <span th:text="${repuesto.descripcion}" ></span>
+						Modelo: <span th:text="${coche.modelo}" ></span>
 					  </li>
-					  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-						Unidades: <span th:text="${repuesto.unidades}" ></span>
-					  </li>
-					  <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-						Marca coche: <span th:text="${repuesto.coche.marca}" ></span>
-					  </li>
-<!--					   <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center" th:each="suministra: ${listaSuministra}">-->
-<!--						Direccion Proveedor: <span th:text="${suministra.proveedor.direccion}" ></span>-->
-<!--					  </li>-->
 					</ul>
 				</p>
 			  </div>
@@ -46,8 +36,8 @@
 		
 	    </div> 
 	    <div class="col col-md-7 d-flex justify-content-between align-items-left">
-			<p><a th:href="@{~/repuestos}" class="btn btn-primary btn-sm">volver</a></p>
-			<p><a th:href="@{~/repuesto/edit/{id}(id=${repuesto.id})}" class="btn btn-outline-primary btn-sm">editar</a></p>
+			<p><a th:href="@{~/coches}" class="btn btn-primary btn-sm">volver</a></p>
+			<p><a th:href="@{~/coche/edit/{id}(id=${coche.id})}" class="btn btn-outline-primary btn-sm">editar</a></p>
 	    </div>
 		
 	  </div>

@@ -8,8 +8,6 @@ import java.util.List;
 import com.spring.start.h2.repuesto.Repuesto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import jakarta.persistence.OneToMany;
@@ -21,19 +19,18 @@ import jakarta.persistence.Table;
 public class Coche {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private String id;
 	
 	private String marca;
 	private String modelo;
 	
 	 
-	@OneToMany(mappedBy = "coche",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "coche",fetch=FetchType.EAGER, orphanRemoval = true)
 	private List<Repuesto> repuesto = new ArrayList<Repuesto>();
-	public long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getMarca() {
