@@ -39,7 +39,7 @@ public class UsuarioController {
 		model.addObject("usuario", usuario);
 		
 		return model; 
-	} 
+	}    
 	
 	@GetMapping("/usuario/add")
 	public ModelAndView addUsuario() {
@@ -58,7 +58,7 @@ public class UsuarioController {
 	    
 	    model.setViewName("redirect:/usuarios");
 	    return model;
-		 
+		   
 		
 	}	
 	

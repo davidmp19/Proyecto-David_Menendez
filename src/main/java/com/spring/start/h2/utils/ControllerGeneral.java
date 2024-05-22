@@ -18,7 +18,7 @@ public class ControllerGeneral {
 	    @GetMapping("/logout")
 	    public ModelAndView getLogOut() {
 	    	ModelAndView model = new ModelAndView();
-	    	model.setViewName("index");
+	    	model.setViewName("htmlsGenerales/logout");
 	        return model;
 	    }
 }

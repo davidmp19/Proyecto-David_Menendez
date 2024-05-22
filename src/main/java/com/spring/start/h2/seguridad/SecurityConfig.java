@@ -5,11 +5,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
 
@@ -36,15 +38,20 @@ public class SecurityConfig {
 	   }	
 	    @Bean
 	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	        http.authorizeRequests()
-	                .requestMatchers("/login", "/css/**", "/js/**").permitAll()
-	                .requestMatchers("/repuestos", "/suministra", "/proveedores", "/coches").permitAll()
-	                .requestMatchers("/repuestos/del/**", "/proveedor/del/**").hasAuthority("ADMIN")
-	                .anyRequest().authenticated()
+	    return http
+	                .formLogin(form->form.loginPage("/login").defaultSuccessUrl("/", true)
+	                		.permitAll())
+	                .logout()
+	                .logoutSuccessUrl("/")
+	                .permitAll()
 	                .and()
-	                .formLogin()
+	                .authorizeRequests(auth->auth.anyRequest().authenticated())
+	                .build();
+//	                .requestMatchers("/login", "/css/**", "/js/**").permitAll()
+//	                .requestMatchers("/repuestos", "/suministra", "/proveedores", "/coches").permitAll()
+//	                .requestMatchers("/repuestos/del/**", "/proveedor/del/**").hasAuthority("ADMIN")
 //	                .loginPage("/login")
-//	                .defaultSuccessUrl("/", true)
+//	                
 //	                .failureUrl("/login?error=true")
 //	                .permitAll()
 //	                .and()
@@ -53,9 +60,9 @@ public class SecurityConfig {
 //	                .logoutSuccessUrl("/login?logout=true")
 //	                .invalidateHttpSession(true)
 //	                .deleteCookies("JSESSIONID")
-	                .permitAll();
+//	                .permitAll();
 
-	        return http.build();
+	         
 	    }
 	   
 }

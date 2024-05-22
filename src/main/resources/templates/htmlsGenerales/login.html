@@ -22,8 +22,10 @@
 
               <h2 class="fw-bold mb-2 text-uppercase">Iniciar Sesion</h2>
               <p class="text-white mb-5">Introduce tu usuario y contraseña!</p>
-
-		  <form action="/login" method="post">
+            <div th:if="${param.error}">
+				<p class="alert alert-danger" role="alert">Usuario o contraseña incorrectos</p>
+			</div>
+		  <form th:action="@{login}" method="post">
 		    <div data-mdb-input-init class="form-outline form-white mb-4">
 		        <input type="text" name="username" id="username" class="form-control form-control-lg" />
 		        <label class="form-label" for="username">Usuario</label>
