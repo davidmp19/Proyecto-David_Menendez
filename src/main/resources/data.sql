@@ -34,4 +34,5 @@ insert into suministra(dniProveedor,idRepuesto)values('11111111B','D123456789D')
 
 insert into Usuario(usuario, password) values ('david', '$2a$12$MAGpqZXWe42TeZTqpW8K9.vSYAwan1VZeTZ8F7VTBg5JStWJ7Y5Ea');
 insert into Usuario(usuario, password) values ('alejandro', '$2a$12$HKDzfhaHdqNmlWW0OAK0x.BzfrLFJ1mejJDe53sPQJe9pDAyAKmNa');
-
+insert into Usuario(usuario, password) values ('usuario1', '$2a$12$F3xcrUIsHRJVS3jGix.L8emvf4bSlcDgrK19zFLI7620gczlYAR/2');
+ 

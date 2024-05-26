@@ -2,6 +2,7 @@ package com.spring.start.h2.usuario;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,9 @@ public class UsuarioController {
 	
 	@Autowired
 	UsuarioDao usuarioDao;
+	
+	 @Autowired
+	 BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@GetMapping("/usuarios")
 	public ModelAndView usuarios() {
@@ -32,7 +36,7 @@ public class UsuarioController {
 	@GetMapping("/usuarios/{user}")
 	public ModelAndView getUsuarioPorId(
 			@PathVariable String user) {
-		Usuario usuario = usuarioDao.findById(user).get();
+		Usuario usuario = usuarioDao.findById(user).orElse(null);
 		
 		ModelAndView model = new ModelAndView();
 		model.setViewName("usuarios/usuario");
@@ -51,7 +55,7 @@ public class UsuarioController {
 		return model;  
 	}	
 	
-	@GetMapping("/usuarios/del/{user}")
+	@GetMapping("/usuario/del/{user}")
 	public ModelAndView delUsuario(@PathVariable String user) {
 	    ModelAndView model = new ModelAndView();
 	    usuarioDao.deleteById(user);
@@ -62,7 +66,14 @@ public class UsuarioController {
 		
 	}	
 	
-		
+	@GetMapping("/usuario/edit/{id}")
+    public ModelAndView editUsuario(@PathVariable String user) {
+        Usuario usuario = usuarioDao.findById(user).orElse(null);
+        ModelAndView model = new ModelAndView();
+        model.setViewName("usuarios/usuarioForm");
+        model.addObject("usuario", usuario);
+        return model;
+    }
 	
 	
 	@PostMapping("/usuario/save")
@@ -74,6 +85,9 @@ public class UsuarioController {
 			model.addObject("usuario", usuario);
 			return model;
 		}
+		 if (usuario.getPassword() != null && !usuario.getPassword().isEmpty()) {
+	            usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
+	      }
 	    usuarioDao.save(usuario);
 		model.setViewName("redirect:/usuarios");	
 		

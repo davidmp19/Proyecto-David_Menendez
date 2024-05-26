@@ -11,8 +11,14 @@ import com.spring.start.h2.coche.Coche;
 
 public interface RepuestoDAO extends CrudRepository<Repuesto, String> {
 
-	 @Query("SELECT r FROM Repuesto r WHERE NOT EXISTS (SELECT su FROM Suministra su WHERE su.repuesto = r)")
+	 	@Query("SELECT r FROM Repuesto r WHERE NOT EXISTS (SELECT su FROM Suministra su WHERE su.repuesto = r)")
 	    List<Repuesto> findRepuestosNoVinculados();
 
-	 List<Repuesto> findByCoche(Coche coche);
+	 	List<Repuesto> findByCoche(Coche coche);
+	 
+	 	@Query("SELECT r FROM Repuesto r WHERE r.peso > ?1")
+	    List<Repuesto> findRepuestosByPesoMasGrandeQue(int peso);
+
+	    @Query("SELECT r FROM Repuesto r WHERE r.unidades < ?1")
+	    List<Repuesto> findRepuestosByUnidadesMenosQue(int unidades);
 }

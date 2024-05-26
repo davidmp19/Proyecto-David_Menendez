@@ -7,12 +7,6 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.spring.start.h2.rol.Rol;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -28,23 +22,6 @@ private String usuario;
 
 private String password;
  
-// @Enumerated(EnumType.STRING)
-// private Rol rol;
-//
-// 
-// 
-//
-//
-//public Rol getRol() {
-//	return rol;
-//}
-//
-//public void setRol(Rol rol) {
-//	this.rol = rol;
-//}
-
-
-
 public String getUsuario() {
 	return usuario;
 }
@@ -68,7 +45,7 @@ public Collection<? extends GrantedAuthority> getAuthorities() {
 	if(usuario.compareTo("david")==0) {
 		permiso = new SimpleGrantedAuthority("ADMIN");
 	}
-	else {
+	else{
 		permiso = new SimpleGrantedAuthority("USER");
 	}
 	permisos.add(permiso);

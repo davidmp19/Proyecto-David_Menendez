@@ -35,7 +35,7 @@ public class SecurityConfig {
 	         .passwordEncoder(bCryptPasswordEncoder)
 	         .and()
 	         .build();
-	   }	
+	   }	 
 	    @Bean
 	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 	    return http
@@ -45,24 +45,14 @@ public class SecurityConfig {
 	                .logoutSuccessUrl("/")
 	                .permitAll()
 	                .and()
-	                .authorizeRequests(auth->auth.anyRequest().authenticated())
+	                .authorizeRequests(auth->auth
+	                		.requestMatchers("/repuestos", "/suministra", "/proveedores", "/coches","/login","/").permitAll()
+	                		.requestMatchers("/repuestos/del/**", "/proveedor/del/**","/suministra/del/**","/coches/del/**").hasAuthority("ADMIN")
+	                		.requestMatchers("/repuesto/edit/**","/proveedor/edit/**","/coche/edit/**").hasAuthority("ADMIN")
+	                		.requestMatchers("/repuestos/**", "/suministra/**", "/proveedores/**", "/coches/**").authenticated()
+	                		)
 	                .build();
-//	                .requestMatchers("/login", "/css/**", "/js/**").permitAll()
-//	                .requestMatchers("/repuestos", "/suministra", "/proveedores", "/coches").permitAll()
-//	                .requestMatchers("/repuestos/del/**", "/proveedor/del/**").hasAuthority("ADMIN")
-//	                .loginPage("/login")
-//	                
-//	                .failureUrl("/login?error=true")
-//	                .permitAll()
-//	                .and()
-//	                .logout()
-//	                .logoutUrl("/logout")
-//	                .logoutSuccessUrl("/login?logout=true")
-//	                .invalidateHttpSession(true)
-//	                .deleteCookies("JSESSIONID")
-//	                .permitAll();
 
-	         
 	    }
 	   
-}
+} 
