@@ -88,6 +88,7 @@
         <table class="table table-sm table-hover">
           <thead>
             <tr>
+			  <th scope="col" style="background-color: gray">ID</th>
               <th scope="col" style="background-color: gray">Nombre usuario</th>
               <th scope="col" style="background-color: gray">Contraseña</th>
               <th scope="col" style="background-color: gray">X</th>
@@ -101,7 +102,10 @@
             </th:block>
             <tr th:each="usuario: ${listaUsuarios}">
               <th scope="row" style="background-color: gray">
-                <a th:href="@{~/usuarios/{id}(id = ${usuario.usuario})}" th:text="${usuario.usuario}"></a>
+                <a th:href="@{~/usuarios/{id}(id = ${usuario.id})}" th:text="${usuario.id}"></a>
+              </th>
+               <th scope="row" style="background-color: gray">
+                <a th:text="${usuario.username}"></a>
               </th>
               <td style="background-color: gray">
                 <span th:text="${usuario.password}"></span>
@@ -109,7 +113,7 @@
               <td style="background-color: gray">
                 <a
                   class="btn btn-danger"
-                  th:href="@{/usuario/del/{id}(id = ${usuario.usuario})}"
+                  th:href="@{/usuario/del/{id}(id = ${usuario.id})}"
                 >Eliminar</a>
               </td>
             </tr>
@@ -117,13 +121,13 @@
           </tbody>
         </table>  
         <div th:if="${#lists.isEmpty(listaUsuarios)}">
-          <a th:href="@{~/usuario/add}" class="btn btn-primary">Agregar Usuario</a>
+          <a th:href="@{~/usuario/registrar}" class="btn btn-primary">Agregar Usuario</a>
         </div>
         </div>
        <div class="text-right">
         <div class="col-1" th:if="!${#lists.isEmpty(listaUsuarios)}">
 			<a class="badge badge-pill badge-success"
-					th:href="@{~/usuario/add}">Añadir</a>
+					th:href="@{~/usuario/registrar}">Añadir</a>
 		</div>
       
         

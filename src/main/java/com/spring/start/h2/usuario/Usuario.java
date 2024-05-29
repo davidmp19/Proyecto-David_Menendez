@@ -8,7 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Usuario implements UserDetails{
@@ -18,16 +21,36 @@ public class Usuario implements UserDetails{
 	private static final long serialVersionUID = 1L;
 
 @Id
-private String usuario;
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
+
+
+private String username;
 
 private String password;
  
-public String getUsuario() {
-	return usuario;
+@Transient
+private String nuevoNombre;
+
+public String getNuevoNombre() {
+    return nuevoNombre;
 }
 
-public void setUsuario(String usuario) {
-	this.usuario = usuario;
+public void setNuevoNombre(String nuevoNombre) {
+    this.nuevoNombre = nuevoNombre;
+}
+
+public Long getId() {
+	return id;
+}
+
+public void setId(Long id) {
+	this.id = id;
+}
+
+
+public void setUsername(String username) {
+	this.username = username;
 }
 
 public String getPassword() {
@@ -42,13 +65,13 @@ public void setPassword(String password) {
 public Collection<? extends GrantedAuthority> getAuthorities() {
 	ArrayList<SimpleGrantedAuthority> permisos = new ArrayList<SimpleGrantedAuthority>();
 	SimpleGrantedAuthority permiso;
-	if(usuario.compareTo("david")==0) {
+	if(username.compareTo("david")==0) {
 		permiso = new SimpleGrantedAuthority("ADMIN");
 	}
 	else{
 		permiso = new SimpleGrantedAuthority("USER");
 	}
-	permisos.add(permiso);
+	permisos.add(permiso); 
 	
 	return permisos;
 }
@@ -56,7 +79,7 @@ public Collection<? extends GrantedAuthority> getAuthorities() {
 @Override
 public String getUsername() {
 	// TODO Auto-generated method stub
-	return usuario;
+	return username;
 }
 
 @Override
