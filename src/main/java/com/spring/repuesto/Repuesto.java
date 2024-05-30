@@ -1,4 +1,4 @@
-package com.spring.start.h2.repuesto;
+package com.spring.repuesto;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,9 +13,9 @@ import jakarta.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.spring.start.h2.coche.Coche;
-import com.spring.start.h2.proveedor.Proveedor;
-import com.spring.start.h2.suministra.Suministra;
+import com.spring.coche.Coche;
+import com.spring.proveedor.Proveedor;
+import com.spring.suministra.Suministra;
 
 
 
@@ -27,7 +27,7 @@ public class Repuesto {
 	@Id
 	private String id;
 	
-	@Size(min=4, max=15, message="minimo 2 caracteres y maximo 30")
+	@Size(min=4, max=30, message="minimo 2 caracteres y maximo 30")
 	private String nombre;
 	
 	@Min(value = 1, message = "El peso debe ser como mínimo 1")

@@ -1,4 +1,4 @@
-package com.spring.start.h2.seguridad;
+package com.spring.seguridad;
 
 import java.util.Optional;
 
@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.spring.start.h2.usuario.Usuario;
-import com.spring.start.h2.usuario.UsuarioDao;
+import com.spring.usuario.Usuario;
+import com.spring.usuario.UsuarioDao;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	@Autowired 

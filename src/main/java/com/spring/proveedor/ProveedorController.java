@@ -1,4 +1,4 @@
-package com.spring.start.h2.proveedor;
+package com.spring.proveedor;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.start.h2.repuesto.Repuesto;
-import com.spring.start.h2.suministra.Suministra;
-import com.spring.start.h2.suministra.SuministraDAO;
+import com.spring.repuesto.Repuesto;
+import com.spring.suministra.Suministra;
+import com.spring.suministra.SuministraDAO;
 
 import jakarta.validation.Valid;
 

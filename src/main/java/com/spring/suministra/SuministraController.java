@@ -1,4 +1,4 @@
-package com.spring.start.h2.suministra;
+package com.spring.suministra;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import com.spring.start.h2.proveedor.ProveedorDAO;
-import com.spring.start.h2.repuesto.Repuesto;
-import com.spring.start.h2.repuesto.RepuestoDAO;
+
+import com.spring.proveedor.ProveedorDAO;
+import com.spring.repuesto.Repuesto;
+import com.spring.repuesto.RepuestoDAO;
  
 @Controller
 public class SuministraController {

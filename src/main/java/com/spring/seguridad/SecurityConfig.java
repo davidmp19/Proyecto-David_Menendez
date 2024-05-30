@@ -1,4 +1,4 @@
-package com.spring.start.h2.seguridad;
+package com.spring.seguridad;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

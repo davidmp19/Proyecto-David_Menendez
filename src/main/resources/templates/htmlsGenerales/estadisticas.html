@@ -1,108 +1,111 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Estadísticas</title>
-    <link rel="stylesheet" href="/css/styles.css">
+	<meta charset="UTF-8">
+	<title>Estadísticas - Autorecambios David</title>
+	<link rel="stylesheet" href="/css/styles.css">
 </head>
 <style>
 	body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
+		font-family: Arial, sans-serif;
+		margin: 20px;
+	}
 
-h1 {
-    text-align: center;
-}
+	h1 {
+		text-align: center;
+	}
 
-section {
-    margin-bottom: 20px;
-}
+	section {
+		margin-bottom: 20px;
+	}
 
-h2 {
-    color: #333;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-}
+	h2 {
+		color: #333;
+		border-bottom: 1px solid #ddd;
+		padding-bottom: 5px;
+	}
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
+	ul {
+		list-style-type: none;
+		padding: 0;
+	}
 
-li {
-    background: #f9f9f9;
-    margin: 5px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
+	li {
+		background: #f9f9f9;
+		margin: 5px 0;
+		padding: 10px;
+		border: 1px solid #ddd;
+	}
 
-li:nth-child(odd) {
-    background: #eee;
-}
+	li:nth-child(odd) {
+		background: #eee;
+	}
 </style>
+
 <body>
-    <h1>Estadísticas</h1>
+	<h1>Estadísticas</h1>
 
-    <section>
-        <h2>Repuestos con Peso Mayor a 10</h2>
-        <ul>
-            <li th:each="repuesto : ${repuestosPesados}">
-                <span th:text="${repuesto.nombre}">Nombre</span> - 
-                <span th:text="${repuesto.peso}">Peso</span>
-            </li>
-        </ul>
-    </section>
+	<section>
+		<h2>Repuestos con Peso Mayor a 10</h2>
+		<ul>
+			<li th:each="repuesto : ${repuestosPesados}">
+				<span th:text="${repuesto.nombre}">Nombre</span> -
+				<span th:text="${repuesto.peso}">Peso</span>
+			</li>
+		</ul>
+	</section>
 
-    <section>
-        <h2>Repuestos con Menos de 10 Unidades</h2>
-        <ul>
-            <li th:each="repuesto : ${repuestosPocasUni}">
-                <span th:text="${repuesto.nombre}">Nombre</span> - 
-                <span th:text="${repuesto.unidades}">Unidades</span>
-            </li>
-        </ul>
-    </section>
+	<section>
+		<h2>Repuestos con Menos de 10 Unidades</h2>
+		<ul>
+			<li th:each="repuesto : ${repuestosPocasUni}">
+				<span th:text="${repuesto.nombre}">Nombre</span> -
+				<span th:text="${repuesto.unidades}">Unidades</span>
+			</li>
+		</ul>
+	</section>
 
-    <section>
-        <h2>Proveedores en Oviedo</h2>
-        <ul>
-            <li th:each="proveedor : ${proveedorDireccion}">
-                <span th:text="${proveedor.nombre}">Nombre</span> - 
-                <span th:text="${proveedor.direccion}">Dirección</span>
-            </li>
-        </ul>
-    </section>
+	<section>
+		<h2>Proveedores en Oviedo</h2>
+		<ul>
+			<li th:each="proveedor : ${proveedorDireccion}">
+				<span th:text="${proveedor.nombre}">Nombre</span> -
+				<span th:text="${proveedor.direccion}">Dirección</span>
+			</li>
+		</ul>
+	</section>
 
-    <section>
-        <h2>Proveedores con Más de 2 Repuestos</h2>
-        <ul>
-            <li th:each="proveedor : ${proveedorRepuestos}">
-                <span th:text="${proveedor.nombre}">Nombre</span> - 
-                <span th:text="${proveedor.repuestos.size()}">Número de Repuestos</span>
-            </li>
-        </ul>
-    </section>
+	<section>
+		<h2>Proveedores con Más de 2 Repuestos</h2>
+		<ul>
+			<li th:each="proveedor : ${proveedorRepuestos}">
+				<span th:text="${proveedor.nombre}">Nombre</span> -
+				<span th:text="${proveedor.repuestos.size()}">Número de Repuestos</span>
+			</li>
+		</ul>
+	</section>
 
-    <section>
-        <h2>Coches de Marca Mercedes</h2>
-        <ul>
-            <li th:each="coche : ${getCochesByMarca}">
-                <span th:text="${coche.marca}">Marca</span> - 
-                <span th:text="${coche.modelo}">Modelo</span>
-            </li>
-        </ul>
-    </section>
+	<section>
+		<h2>Coches de Marca Mercedes</h2>
+		<ul>
+			<li th:each="coche : ${getCochesByMarca}">
+				<span th:text="${coche.marca}">Marca</span> -
+				<span th:text="${coche.modelo}">Modelo</span>
+			</li>
+		</ul>
+	</section>
 
-    <section>
-        <h2>Coches con Más de 1 Repuesto</h2>
-        <ul>
-            <li th:each="coche : ${getCochesByRepuestoCount}">
-                <span th:text="${coche.marca}">Marca</span> - 
-                <span th:text="${coche.modelo}">Modelo</span> - 
-                <span th:text="${coche.repuesto.size()}">Número de Repuestos</span>
-            </li>
-        </ul>
-    </section>
+	<section>
+		<h2>Coches con Más de 1 Repuesto</h2>
+		<ul>
+			<li th:each="coche : ${getCochesByRepuestoCount}">
+				<span th:text="${coche.marca}">Marca</span> -
+				<span th:text="${coche.modelo}">Modelo</span> -
+				<span th:text="${coche.repuesto.size()}">Número de Repuestos</span>
+			</li>
+		</ul>
+	</section>
 </body>
+
 </html>

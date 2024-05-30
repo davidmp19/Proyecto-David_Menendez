@@ -1,161 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Bootstrap CSS -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <title></title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+	<title>Repuestos - Autorecambios David</title>
 </head>
 <style>
-  :root {
-    --fondo: white;
-    --fondoMenu: rgb(145, 189, 189);
-    --fondoGris: gray;
-  }
-  
-  [data-theme="light"] {
-    --fondo: white;
-    --fondoMenu: rgb(145, 189, 189);
-    --fondoGris: gray;
-  }
-  
-  [data-theme="dark"] {
-    --fondo: black;
-    --fondoMenu: rgb(145, 189, 189);
-    --fondoGris: rgb(40, 36, 36);
-  }
-  body{
-    background-color: var(--fondoGris);
-  }
-  .container{
-	   background-color: var(--fondoGris);
-  }
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .switch .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--fondoMenu);
-    transition: .4s;  
-    border-radius: 34px;
-  }
-  
-  .switch .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: var(--fondo);
-    transition: .4s;  
-    border-radius: 50%;
-  }
-  
-  .switch input:checked + .slider {
-    background-color: var(--fondoMenu);
-  }
-  
-  .switch input:checked + .slider:before {
-    transform: translateX(26px);
-  }
-  </style>
-<body> 
-	
-<div class="row" th:replace="~{menu :: menuSuperior}"></div>
-	
-  <div class="container">
-    <div class="row">
-      <div class="col-1"></div>
-      <div class="col-10">
-        <table class="table table-sm table-hover">
-          <thead>
-            <tr>
-              <th scope="col" style="background-color: gray">Codigo Referencia</th>
-              <th scope="col" style="background-color: gray">NOMBRE</th>
-              <th scope="col" style="background-color: gray">DESCRIPCION</th>
-              <th scope="col" style="background-color: gray">Marca coche</th>
-              <th scope="col" style="background-color: gray">X</th>
-            </tr>
-          </thead>
-          <tbody>
-		   <th:block th:if="${#lists.isEmpty(listaRepuestos)}">
-                  <tr>
-                      <td colspan="7">No hay repuestos disponibles.</td>
-                  </tr>
-            </th:block>
-            <tr th:each="repuesto: ${listaRepuestos}">
-              <th scope="row" style="background-color: gray">
-                <a th:href="@{~/repuestos/{id}(id = ${repuesto.id})}" th:text="${repuesto.id}"></a>
-              </th>
-              <td style="background-color: gray">
-                <span th:text="${repuesto.nombre}"></span>
-              </td>
-              <td style="background-color: gray">
-                <span th:text="${repuesto.descripcion}"></span>
-              </td>
-               <td style="background-color: gray">
-                <span th:text="${repuesto.coche.modelo}"></span>
-              </td>
-              <td style="background-color: gray">
-                <a
-                  class="btn btn-danger"
-                  th:href="@{/repuestos/del/{id}(id = ${repuesto.id})}"
-                >Eliminar</a>
-              </td>
-            </tr>
-          
-          </tbody>
-        </table>  
-        <div th:if="${#lists.isEmpty(listaRepuestos)}">
-          <a th:href="@{~/repuesto/add}" class="btn btn-primary">Agregar Repuesto</a>
-        </div>
-        </div>
-       <div class="text-right">
-        <div class="col-1" th:if="!${#lists.isEmpty(listaRepuestos)}">
-			<a class="badge badge-pill badge-success"
-					th:href="@{~/repuesto/add}">Añadir</a>
-		</div>
-      
-        
-      </div>
-    </div>
-  </div>
+	:root {
+		--fondo: white;
+		--fondoMenu: rgb(145, 189, 189);
+		--fondoGris: gray;
+	}
 
- <script src="../static/js/toggle.js"></script>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"
-  ></script>
+	[data-theme="light"] {
+		--fondo: white;
+		--fondoMenu: rgb(145, 189, 189);
+		--fondoGris: gray;
+	}
+
+	[data-theme="dark"] {
+		--fondo: black;
+		--fondoMenu: rgb(145, 189, 189);
+		--fondoGris: rgb(40, 36, 36);
+	}
+
+	body {
+		background-color: var(--fondoGris);
+		font-family: Arial, sans-serif;
+	}
+
+	.container {
+		background-color: var(--fondo);
+		padding: 20px;
+		border-radius: 10px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
+
+	.table-hover tbody tr:hover {
+		background-color: rgba(0, 0, 0, 0.05);
+	}
+
+	.header {
+		background-color: var(--fondoMenu);
+		color: white;
+		padding: 10px;
+		border-radius: 10px 10px 0 0;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	.footer {
+		background-color: var(--fondoMenu);
+		color: white;
+		padding: 10px;
+		border-radius: 0 0 10px 10px;
+		text-align: center;
+		margin-top: 20px;
+	}
+
+	.btn-primary {
+		background-color: var(--fondoMenu);
+		border: none;
+	}
+
+	.btn-primary:hover {
+		background-color: rgba(145, 189, 189, 0.8);
+	}
+
+	.icon-links a {
+		margin: 0 5px;
+	}
+
+	.switch {
+		position: relative;
+		display: inline-block;
+		width: 60px;
+		height: 34px;
+	}
+
+	.switch input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.switch .slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: var(--fondoMenu);
+		transition: .4s;
+		border-radius: 34px;
+	}
+
+	.switch .slider:before {
+		position: absolute;
+		content: "";
+		height: 26px;
+		width: 26px;
+		left: 4px;
+		bottom: 4px;
+		background-color: var(--fondo);
+		transition: .4s;
+		border-radius: 50%;
+	}
+
+	.switch input:checked+.slider {
+		background-color: var(--fondoMenu);
+	}
+
+	.switch input:checked+.slider:before {
+		transform: translateX(26px);
+	}
+</style>
+
+<body>
+
+	<div class="row" th:replace="~{menu :: menuSuperior}"></div>
+	<br>
+	<div class="container">
+		<div class="header">
+			<h1>Nuestros repuestos</h1>
+			<p>Encuentra tu repuesto!</p>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<table class="table table-sm table-hover">
+					<thead class="table-light">
+						<tr>
+							<th scope="col">CODIGO REFERENCIA</th>
+							<th scope="col">NOMBRE</th>
+							<th scope="col">MARCA Y MODELO</th>
+							<th scope="col">VER EN DETALLE</th>
+							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+								<th scope="col">EDITAR</th>
+								<th scope="col">ELIMINAR</th>
+							</th:block>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:if="${#lists.isEmpty(listaRepuestos)}">
+							<tr>
+								<td colspan="6" class="text-center">No hay repuestos disponibles.</td>
+							</tr>
+						</th:block>
+						<tr th:each="repuesto: ${listaRepuestos}">
+							<td>
+								<a th:text="${repuesto.id}"></a>
+							</td>
+							<td>
+								<span th:text="${repuesto.nombre}"></span>
+							</td>
+							<td>
+								<span th:text="${repuesto.coche.marca + ' ' + repuesto.coche.modelo}"></span>
+							</td>
+							<td class="icon-links">
+									<a th:href="@{~/repuestos/{id}(id = ${repuesto.id})}">
+										<i class="bi bi-eye" style="font-size: 24px;"></i>
+									</a>
+							</td>
+							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+								<td>
+									<a th:href="@{~/repuesto/edit/{id}(id=${repuesto.id})}"><i
+											class="bi bi-pencil-square" style="font-size: 24px;"></i></a>
+								</td>
+								<td>
+									<a th:href="@{/repuestos/del/{id}(id = ${repuesto.id})}"><i
+											class="bi bi-trash-fill text-danger" style="font-size: 24px;"></i></a>
+								</td>
+							</th:block>
+						</tr>
+					</tbody>
+				</table>
+				<div th:if="${#lists.isEmpty(listaRepuestos)}" class="text-center">
+					<a th:href="@{~/repuesto/add}" class="btn btn-primary">Agregar Repuesto</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<p>&copy; 2024 Autorecambios David. Todos los derechos reservados.</p>
+		</div>
+	</div>
+	<br>
+	<script src="../static/js/toggle.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
 </body>
+
 </html>

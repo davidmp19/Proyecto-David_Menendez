@@ -1,11 +1,13 @@
-package com.spring.start.h2.coche;
+package com.spring.coche;
 
 
 
 
 import java.util.ArrayList;
 import java.util.List;
-import com.spring.start.h2.repuesto.Repuesto;
+
+import com.spring.repuesto.Repuesto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;

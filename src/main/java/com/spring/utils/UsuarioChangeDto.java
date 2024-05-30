@@ -1,23 +1,31 @@
-package com.spring.start.h2.utils;
+package com.spring.utils;
 
-import jakarta.validation.constraints.NotEmpty;
 
-public class PasswordChangeDto {
-	@NotEmpty
+public class UsuarioChangeDto {
+	
+    private String newUsername;
+	
     private String currentPassword;
 
-    @NotEmpty
     private String newPassword;
 
-    @NotEmpty
     private String confirmNewPassword;
 
     // Getters and Setters
+    
     public String getCurrentPassword() {
         return currentPassword;
     }
 
-    public void setCurrentPassword(String currentPassword) {
+	public String getNewUsername() {
+		return newUsername;
+	}
+
+	public void setNewUsername(String newUsername) {
+		this.newUsername = newUsername;
+	}
+
+	public void setCurrentPassword(String currentPassword) {
         this.currentPassword = currentPassword;
     }
 

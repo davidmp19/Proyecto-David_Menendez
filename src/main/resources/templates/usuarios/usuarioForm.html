@@ -1,123 +1,137 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Actualización de Usuario - Autorecambios</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --fondo: white;
-            --fondoMenu: rgb(145, 189, 189);
-            --fondoGris: gray;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-        
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .switch .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--fondoMenu);
-            transition: .4s;  
-            border-radius: 34px;
-        }
-        
-        .switch .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: var(--fondo);
-            transition: .4s;  
-            border-radius: 50%;
-        }
-        
-        .switch input:checked + .slider {
-            background-color: var(--fondoMenu);
-        }
-        
-        .switch input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-        .card-header {
-            background-color: #343a40;
-            color: white;
-            font-weight: bold;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #004085;
-        }
-        .form-container {
-            margin-top: 50px;
-        }
-        .back-button {
-            margin-top: 20px;
-        }
-    </style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Actualización de Nombre Usuario - Autorecambios</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+	<style>
+		:root {
+			--fondo: white;
+			--fondoMenu: rgb(145, 189, 189);
+			--fondoGris: gray;
+		}
+
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 60px;
+			height: 34px;
+		}
+
+		.switch input {
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		.switch .slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: var(--fondoMenu);
+			transition: .4s;
+			border-radius: 34px;
+		}
+
+		.switch .slider:before {
+			position: absolute;
+			content: "";
+			height: 26px;
+			width: 26px;
+			left: 4px;
+			bottom: 4px;
+			background-color: var(--fondo);
+			transition: .4s;
+			border-radius: 50%;
+		}
+
+		.switch input:checked+.slider {
+			background-color: var(--fondoMenu);
+		}
+
+		.switch input:checked+.slider:before {
+			transform: translateX(26px);
+		}
+
+		.card-header {
+			background-color: #343a40;
+			color: white;
+			font-weight: bold;
+		}
+
+		.btn-primary {
+			background-color: #007bff;
+			border-color: #007bff;
+		}
+
+		.btn-primary:hover {
+			background-color: #0056b3;
+			border-color: #004085;
+		}
+
+		.form-container {
+			margin-top: 50px;
+		}
+
+		.back-button {
+			margin-top: 20px;
+		}
+	</style>
 </head>
+
 <body>
-    <div class="row" th:replace="~{menu :: menuSuperior}"></div>
-    <div class="container">
-        <h1>Actualizar Usuario</h1>
+	<div class="row" th:replace="~{menu :: menuSuperior}"></div>
+	<div class="container">
+		<h1>Actualizar Usuario</h1>
 
-        <form th:action="@{/usuario/updateUsername}" th:object="${usuario}" method="post">
-            <input type="hidden" th:field="*{id}" />
-            <div class="mb-3">
-                <label for="nuevoNombre" class="form-label">Nuevo Nombre de Usuario:</label>
-                <input type="text" class="form-control" th:field="*{nuevoNombre}" id="nuevoNombre" placeholder="Nuevo nombre de usuario">
-                <div th:if="${#fields.hasErrors('nuevoNombre')}" th:errors="*{nuevoNombre}" class="text-danger"></div>
-            </div>
-            <button type="submit" class="btn btn-primary">Actualizar Nombre</button>
-        </form>
-        <h2>Cambiar Contraseña</h2>
+		<form th:action="@{/usuario/updateUsername}" th:object="${usuarioChangeDto}" method="post">
+			<input type="hidden" name="id" th:value="${usuario.id}" />
+			<div class="mb-3">
+				<label for="newUsername" class="form-label">Nuevo Nombre de Usuario:</label>
+				<input type="text" class="form-control" th:field="*{newUsername}" id="newUsername"
+					placeholder="Nuevo nombre de usuario">
+				<div th:if="${#fields.hasErrors('newUsername')}" th:errors="*{newUsername}" class="text-danger"></div>
+			</div>
+			<button type="submit" class="btn btn-primary">Actualizar Nombre</button>
+		</form>
+		<h2>Cambiar Contraseña</h2>
 
-        <!-- Formulario para cambiar la contraseña -->
-        <form th:action="@{/usuario/updatePassword}" th:object="${passwordChangeDto}" method="post">
-            <input type="hidden" name="id" th:value="${usuario.id}"/>
-            <div class="mb-3">
-                <label for="currentPassword" class="form-label">Contraseña Actual:</label>
-                <input type="password" class="form-control" th:field="*{currentPassword}" id="currentPassword" placeholder="Contraseña actual">
-                <div th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}" class="text-danger"></div>
-            </div>
-            <div class="mb-3">
-                <label for="newPassword" class="form-label">Nueva Contraseña:</label>
-                <input type="password" class="form-control" th:field="*{newPassword}" id="newPassword" placeholder="Nueva contraseña">
-                <div th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}" class="text-danger"></div>
-            </div>
-            <div class="mb-3">
-                <label for="confirmNewPassword" class="form-label">Confirmar Nueva Contraseña:</label>
-                <input type="password" class="form-control" th:field="*{confirmNewPassword}" id="confirmNewPassword" placeholder="Confirmar nueva contraseña">
-                <div th:if="${#fields.hasErrors('confirmNewPassword')}" th:errors="*{confirmNewPassword}" class="text-danger"></div>
-            </div>
-            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
-        </form>
-
-        <a th:href="@{/usuarios}" class="btn btn-primary">Volver</a>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<!-- Formulario para cambiar la contraseña -->
+		<form th:action="@{/usuario/updatePassword}" th:object="${usuarioChangeDto}" method="post">
+			<input type="hidden" name="id" th:value="${usuario.id}" />
+			<div class="mb-3">
+				<label for="currentPassword" class="form-label">Contraseña Actual:</label>
+				<input type="password" class="form-control" th:field="*{currentPassword}" id="currentPassword"
+					placeholder="Contraseña actual">
+				<div th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}" class="text-danger">
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="newPassword" class="form-label">Nueva Contraseña:</label>
+				<input type="password" class="form-control" th:field="*{newPassword}" id="newPassword"
+					placeholder="Nueva contraseña">
+				<div th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}" class="text-danger"></div>
+			</div>
+			<div class="mb-3">
+				<label for="confirmNewPassword" class="form-label">Confirmar Nueva Contraseña:</label>
+				<input type="password" class="form-control" th:field="*{confirmNewPassword}" id="confirmNewPassword"
+					placeholder="Confirmar nueva contraseña">
+				<div th:if="${#fields.hasErrors('confirmNewPassword')}" th:errors="*{confirmNewPassword}"
+					class="text-danger"></div>
+			</div>
+			<button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+		</form>
+		<a th:href="@{/usuarios}" class="btn btn-primary">Volver</a>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

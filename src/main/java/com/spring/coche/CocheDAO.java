@@ -1,4 +1,4 @@
-package com.spring.start.h2.coche;
+package com.spring.coche;
 
 import java.util.List;
 

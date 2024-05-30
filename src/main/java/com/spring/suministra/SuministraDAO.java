@@ -1,4 +1,4 @@
-package com.spring.start.h2.suministra;
+package com.spring.suministra;
 
 import java.util.List;
 import java.util.Optional;

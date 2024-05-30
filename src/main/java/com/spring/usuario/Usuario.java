@@ -1,4 +1,4 @@
-package com.spring.start.h2.usuario;
+package com.spring.usuario;
 
 
 import java.util.ArrayList;
@@ -11,9 +11,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
+@Table(name="Usuario", uniqueConstraints= {@UniqueConstraint(columnNames= {"username"})})
 public class Usuario implements UserDetails{
 	/**
 	 * 
@@ -23,7 +26,6 @@ public class Usuario implements UserDetails{
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
-
 
 private String username;
 

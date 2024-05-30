@@ -1,12 +1,11 @@
-package com.spring.start.h2.proveedor;
+package com.spring.proveedor;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-
-import com.spring.start.h2.repuesto.Repuesto;
+import com.spring.repuesto.Repuesto;
 
 public interface ProveedorDAO extends CrudRepository<Proveedor, String>{
 

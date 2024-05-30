@@ -1,8 +1,8 @@
-package com.spring.start.h2.suministra;
+package com.spring.suministra;
 
 
-import com.spring.start.h2.proveedor.Proveedor;
-import com.spring.start.h2.repuesto.Repuesto;
+import com.spring.proveedor.Proveedor;
+import com.spring.repuesto.Repuesto;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
