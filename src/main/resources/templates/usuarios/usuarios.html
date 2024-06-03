@@ -1,142 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-  <title>Usuarios - Autorecambios David</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+	<title>Usuarios - Autorecambios David</title>
 </head>
 <style>
-  :root {
-    --fondo: white;
-    --fondoMenu: rgb(145, 189, 189);
-    --fondoGris: gray;
-  }
-  
-  [data-theme="light"] {
-    --fondo: white;
-    --fondoMenu: rgb(145, 189, 189);
-    --fondoGris: gray;
-  }
-  
-  [data-theme="dark"] {
-    --fondo: black;
-    --fondoMenu: rgb(145, 189, 189);
-    --fondoGris: rgb(40, 36, 36);
-  }
-  body{
-    background-color: var(--fondoGris);
-  }
-  .container{
-	   background-color: var(--fondoGris);
-  }
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .switch .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--fondoMenu);
-    transition: .4s;  
-    border-radius: 34px;
-  }
-  
-  .switch .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: var(--fondo);
-    transition: .4s;  
-    border-radius: 50%;
-  }
-  
-  .switch input:checked + .slider {
-    background-color: var(--fondoMenu);
-  }
-  
-  .switch input:checked + .slider:before {
-    transform: translateX(26px);
-  }
-  </style>
-<body> 
-	
-<div class="row" th:replace="~{menu :: menuSuperior}"></div>
-	
-  <div class="container">
-    <div class="row">
-      <div class="col-1"></div>
-      <div class="col-10">
-        <table class="table table-sm table-hover">
-          <thead>
-            <tr>
-			  <th scope="col" style="background-color: gray">ID</th>
-              <th scope="col" style="background-color: gray">Nombre usuario</th>
-              <th scope="col" style="background-color: gray">Contraseña</th>
-              <th scope="col" style="background-color: gray">X</th>
-            </tr>
-          </thead>
-          <tbody>
-		   <th:block th:if="${#lists.isEmpty(listaUsuarios)}">
-                  <tr>
-                      <td colspan="7">No hay usuarios disponibles.</td>
-                  </tr>
-            </th:block>
-            <tr th:each="usuario: ${listaUsuarios}">
-              <th scope="row" style="background-color: gray">
-                <a th:href="@{~/usuarios/{id}(id = ${usuario.id})}" th:text="${usuario.id}"></a>
-              </th>
-               <th scope="row" style="background-color: gray">
-                <a th:text="${usuario.username}"></a>
-              </th>
-              <td style="background-color: gray">
-                <span th:text="${usuario.password}"></span>
-              </td>
-              <td style="background-color: gray">
-                <a
-                  class="btn btn-danger"
-                  th:href="@{/usuario/del/{id}(id = ${usuario.id})}"
-                >Eliminar</a>
-              </td>
-            </tr>
-          
-          </tbody>
-        </table>  
-        <div th:if="${#lists.isEmpty(listaUsuarios)}">
-          <a th:href="@{~/usuario/registrar}" class="btn btn-primary">Agregar Usuario</a>
-        </div>
-        </div>
-       <div class="text-right">
-        <div class="col-1" th:if="!${#lists.isEmpty(listaUsuarios)}">
-			<a class="badge badge-pill badge-success"
-					th:href="@{~/usuario/registrar}">Añadir</a>
-		</div>
-      
-        
-      </div>
-    </div>
-  </div>
+	:root {
+		--fondo-light: #FFFFFF;
+		--texto-light: #000000;
+		--fondoMenu-light: #BAFF39;
+		--fondoGris-light: #DDDDDD;
+		--boton-primary-light: #003366;
+	}
 
- 	<script src="../static/js/toggle.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	body {
+		background-color: var(--fondoGris-light);
+		color: var(--texto-light);
+		font-family: Arial, sans-serif;
+	}
+
+	[data-bs-theme="dark"] {
+		--fondo-light: #444444;
+		--fondoMenu-light: #91BDBD;
+		--fondoGris-light: #6E6E6E;
+		--texto-light: #FFFFFF;
+	}
+
+	.navbar {
+		background-color: var(--fondoMenu-light);
+		color: var(--texto-light);
+	}
+
+	.nav-link {
+		color: var(--texto-light);
+	}
+
+	.nav-link:hover {
+		color: rgba(255, 255, 255, 0.7);
+	}
+
+	.container {
+		background-color: var(--fondo-light);
+	}
+</style>
+
+<body>
+
+	<div class="row" th:replace="~{menu :: menuSuperior}"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<table class="table table-sm table-hover">
+					<thead>
+						<tr>
+							<th scope="col" style="background-color: gray">ID</th>
+							<th scope="col" style="background-color: gray">Nombre usuario</th>
+							<th scope="col" style="background-color: gray">Contraseña</th>
+							<th scope="col" style="background-color: gray">X</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:if="${#lists.isEmpty(listaUsuarios)}">
+							<tr>
+								<td colspan="7">No hay usuarios disponibles.</td>
+							</tr>
+						</th:block>
+						<tr th:each="usuario: ${listaUsuarios}">
+							<th scope="row" style="background-color: gray">
+								<a th:href="@{~/usuarios/{id}(id = ${usuario.id})}" th:text="${usuario.id}"></a>
+							</th>
+							<th scope="row" style="background-color: gray">
+								<a th:text="${usuario.username}"></a>
+							</th>
+							<td style="background-color: gray">
+								<span th:text="${usuario.password}"></span>
+							</td>
+							<td style="background-color: gray">
+								<a class="btn btn-danger"
+									th:href="@{/usuario/del/{id}(id = ${usuario.id})}">Eliminar</a>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<div th:if="${#lists.isEmpty(listaUsuarios)}">
+					<a th:href="@{~/usuario/registrar}" class="btn btn-primary">Agregar Usuario</a>
+				</div>
+			</div>
+			<div class="text-right">
+				<div class="col-1" th:if="!${#lists.isEmpty(listaUsuarios)}">
+					<a class="badge badge-pill badge-success" th:href="@{~/usuario/registrar}">Añadir</a>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/toggle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

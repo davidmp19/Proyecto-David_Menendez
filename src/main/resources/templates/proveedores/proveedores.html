@@ -10,30 +10,43 @@
 	<title>Coches - Autorecambios David</title>
 	<style>
 		:root {
-			--fondo: white;
-			--fondoMenu: rgb(145, 189, 189);
-			--fondoGris: gray;
-		}
-
-		[data-theme="light"] {
-			--fondo: white;
-			--fondoMenu: rgb(145, 189, 189);
-			--fondoGris: gray;
-		}
-
-		[data-theme="dark"] {
-			--fondo: black;
-			--fondoMenu: rgb(145, 189, 189);
-			--fondoGris: rgb(40, 36, 36);
+			--fondo-light: #FFFFFF;
+			--texto-light: #000000;
+			--fondoMenu-light: #BAFF39;
+			--fondoGris-light: #DDDDDD;
+			--boton-primary-light: #003366;
 		}
 
 		body {
-			background-color: var(--fondoGris);
+			background-color: var(--fondoGris-light);
+			color: var(--texto-light);
 			font-family: Arial, sans-serif;
 		}
 
+		[data-bs-theme="dark"] {
+			--fondo-light: #444444;
+			--fondoMenu-light: #91BDBD;
+			--fondoGris-light: #6E6E6E;
+			--texto-light: #FFFFFF;
+		}
+
+		.navbar {
+			background-color: var(--fondoMenu-light);
+			color: var(--texto-light);
+		}
+
+		.nav-link {
+			color: var(--texto-light);
+		}
+
+		.nav-link:hover {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+
 		.container {
-			background-color: var(--fondo);
+			background-color: var(--fondo-light);
+			color: var(--texto-light);
 			padding: 20px;
 			border-radius: 10px;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -44,8 +57,8 @@
 		}
 
 		.header {
-			background-color: var(--fondoMenu);
-			color: white;
+			background-color: var(--fondoMenu-light);
+			color: var(--texto-dark);
 			padding: 10px;
 			border-radius: 10px 10px 0 0;
 			text-align: center;
@@ -53,8 +66,8 @@
 		}
 
 		.footer {
-			background-color: var(--fondoMenu);
-			color: white;
+			background-color: var(--fondoMenu-light);
+			color: var(--texto-dark);
 			padding: 10px;
 			border-radius: 0 0 10px 10px;
 			text-align: center;
@@ -62,18 +75,17 @@
 		}
 
 		.btn-primary {
-			background-color: var(--fondoMenu);
+			background-color: var(--boton-primary-light);
 			border: none;
 		}
 
 		.btn-primary:hover {
-			background-color: rgba(145, 189, 189, 0.8);
+			background-color: var(--fondoMenu-light);
 		}
 
 		.icon-links a {
 			margin: 0 5px;
 		}
-	
 	</style>
 </head>
 
@@ -90,15 +102,15 @@
 		<div class="row">
 			<div class="col-12">
 				<table class="table table-sm table-hover">
-					<thead class="table-light">
+					<thead class="table-light text-center">
 						<tr>
 							<th scope="col">DNI</th>
 							<th scope="col">NOMBRE</th>
 							<th scope="col">DIRECCION</th>
 							<th scope="col">VER EN DETALLE</th>
 							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-							<th scope="col">EDITAR</th>
-							<th scope="col">ELIMINAR</th>
+								<th scope="col">EDITAR</th>
+								<th scope="col">ELIMINAR</th>
 							</th:block>
 						</tr>
 					</thead>
@@ -108,7 +120,7 @@
 								<td colspan="6" class="text-center">No hay proveedores disponibles.</td>
 							</tr>
 						</th:block>
-						<tr th:each="proveedor: ${listaProveedores}">
+						<tr th:each="proveedor: ${listaProveedores}" class="text-center">
 							<td>
 								<a th:text="${proveedor.dni}"></a>
 							</td>
@@ -119,11 +131,13 @@
 								<span th:text="${proveedor.direccion}"></span>
 							</td>
 							<td class="icon-links">
-								<a th:href="@{~/proveedor/{dni}(dni = ${proveedor.dni})}"><i class="bi bi-eye" style="font-size: 24px;"></i></a>
+								<a th:href="@{~/proveedor/{dni}(dni = ${proveedor.dni})}"><i class="bi bi-eye"
+										style="font-size: 24px;"></i></a>
 							</td>
 							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
 								<td>
-									<a th:href="@{~/proveedor/edit/{dni}(dni=${proveedor.dni})}"><i class="bi bi-pencil-square" style="font-size: 24px;"></i></a>
+									<a th:href="@{~/proveedor/edit/{dni}(dni=${proveedor.dni})}"><i
+											class="bi bi-pencil-square" style="font-size: 24px;"></i></a>
 								</td>
 								<td>
 									<a th:href="@{/proveedor/del/{dni}(dni = ${proveedor.dni})}"><i
@@ -133,6 +147,9 @@
 						</tr>
 					</tbody>
 				</table>
+				<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+					<a th:href="@{~/proveedor/add}" class="btn btn-primary">Agregar Proveedor</a>
+				</th:block>
 				<div th:if="${#lists.isEmpty(listaProveedores)}" class="text-center">
 					<a th:href="@{~/proveedor/add}" class="btn btn-primary">Agregar Proveedor</a>
 				</div>
@@ -144,16 +161,8 @@
 		</div>
 	</div>
 	<br>
-	<script src="../static/js/toggle.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
+	<script src="/js/toggle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -7,7 +7,43 @@
 	<title>Enlace suministros - Autorecambios David</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+<style>
+	:root {
+		--fondo-light: #FFFFFF;
+		--texto-light: #000000;
+		--fondoMenu-light: #BAFF39;
+		--fondoGris-light: #DDDDDD;
+		--boton-primary-light: #003366;
+	}
+
+	body {
+		background-color: var(--fondoGris-light);
+		color: var(--texto-light);
+		font-family: Arial, sans-serif;
+	}
+
+	[data-bs-theme="dark"] {
+		--fondo-light: #444444;
+		--fondoMenu-light: #91BDBD;
+		--fondoGris-light: #6E6E6E;
+		--texto-light: #FFFFFF;
+	}
+
+	.navbar {
+		background-color: var(--fondoMenu-light);
+		color: var(--texto-light);
+	}
+
+	.nav-link {
+		color: var(--texto-light);
+	}
+
+	.nav-link:hover {
+		color: rgba(255, 255, 255, 0.7);
+	}
+</style>
 
 <body>
 	<div class="row" th:insert="~{menu :: menuSuperior}"></div>
@@ -18,44 +54,49 @@
 			</div>
 
 			<div class="col col-md-4">
-
-				<form th:action="@{~/suministra/save}" th:object="${suministra}" method="post">
+				<form th:action="@{/suministra/save}" th:object="${suministra}" method="post">
 					<div class="card bg-light mb-3" style="max-width: 18rem;">
-						<div class="card-header"><input readonly type="text" th:field="*{id}" size=2 /></div>
+						<div class="card-header">
+							<input readonly type="text" th:field="*{id}" size=2 />
+						</div>
 						<div class="card-body">
-
 							<p class="card-text">
 							<ul class="list-group">
 								<li
 									class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
 									Repuesto:
 									<select class="form-control" th:field="*{repuesto}">
-										<option th:each="r:${repuestos}" th:value="${r.id}" th:text="${r.nombre}">OPCION
-										</option>
+										<option th:each="r : ${repuestos}" th:value="${r.id}" th:text="${r.nombre}">
+											OPCION</option>
 									</select>
 								</li>
 								<li
 									class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
 									Proveedor
 									<select class="form-control" th:field="*{proveedor}">
-										<option th:each="p:${proveedores}" th:value="${p.dni}" th:text="${p.nombre}">
+										<option th:each="p : ${proveedores}" th:value="${p.dni}" th:text="${p.nombre}">
 											OPCION</option>
 									</select>
 								</li>
 							</ul>
+							<br>
+							<div th:if="${error}" class="alert alert-danger" role="alert">
+								<span th:text="${error}"></span>
+							</div>
 							</p>
 						</div>
 					</div>
 					<p><input type="submit" class="btn btn-primary" value="enviar" /></p>
 				</form>
-
 			</div>
+
 			<div class="col col-md-5 d-flex justify-content-between align-items-left">
-				<a th:href="@{~/suministra}" class="btn btn-primary btn-sm">volver</a>
+				<a th:href="@{/suministra}" class="btn btn-primary btn-sm">volver</a>
 			</div>
-
 		</div>
 	</div>
 </body>
+<script src="/js/toggle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

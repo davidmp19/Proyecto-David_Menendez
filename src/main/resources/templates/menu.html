@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg" th:fragment="menuSuperior" style="background-color: rgb(145, 189, 189);">
+	<nav class="navbar navbar-expand-lg" th:fragment="menuSuperior">
 		<div class="container-fluid">
 			<h3 class="navbar-brand">AutoRecambios David</h3>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -37,22 +37,16 @@
 						<a class="nav-link" th:href="@{~/logout}">Cerrar sesión</a>
 					</li>
 				</ul>
-				<form class="d-flex ms-auto" action="/buscarRepuesto" method="get">
-					<input class="form-control me-2" type="search" placeholder="Introduce referencia"
-						aria-label="Search" name="id">
-					<button class="btn btn-outline-success" type="submit">Buscar</button>
-				</form>
-				<label class="switch">
-					<input type="checkbox" id="slider" checked>
-					<span class="slider"></span>
-				</label>
+				<div class="col text-end">
+					<button class="btn btn-secondary" id="darkModeToggle">
+						<i class="bi bi-moon"></i> Modo Oscuro
+					</button>
+				</div>
 			</div>
 		</div>
 	</nav>
 </body>
-<script src="../static/js/toggle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 	crossorigin="anonymous"></script>
-
 </html>

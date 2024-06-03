@@ -8,11 +8,11 @@
 		<version>3.1.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.spring</groupId>
-	<artifactId>entidades</artifactId>
+	<groupId>es.tfgdm</groupId>
+	<artifactId>autorecambiosDavid</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>entidades</name>
-	<description>Probando swagger</description>
+	<name>autorecambiosDavid</name>
+	<description>Proyecto autorecambiosDavid</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

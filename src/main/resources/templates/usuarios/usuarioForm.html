@@ -5,58 +5,42 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Actualización de Nombre Usuario - Autorecambios</title>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 	<style>
 		:root {
-			--fondo: white;
-			--fondoMenu: rgb(145, 189, 189);
-			--fondoGris: gray;
+			--fondo-light: #FFFFFF;
+			--texto-light: #000000;
+			--fondoMenu-light: #BAFF39;
+			--fondoGris-light: #DDDDDD;
+			--boton-primary-light: #003366;
 		}
 
-		.switch {
-			position: relative;
-			display: inline-block;
-			width: 60px;
-			height: 34px;
+		body {
+			background-color: var(--fondoGris-light);
+			color: var(--texto-light);
+			font-family: Arial, sans-serif;
 		}
 
-		.switch input {
-			opacity: 0;
-			width: 0;
-			height: 0;
+		[data-bs-theme="dark"] {
+			--fondo-light: #444444;
+			--fondoMenu-light: #91BDBD;
+			--fondoGris-light: #6E6E6E;
+			--texto-light: #FFFFFF;
 		}
 
-		.switch .slider {
-			position: absolute;
-			cursor: pointer;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background-color: var(--fondoMenu);
-			transition: .4s;
-			border-radius: 34px;
+		.navbar {
+			background-color: var(--fondoMenu-light);
+			color: var(--texto-light);
 		}
 
-		.switch .slider:before {
-			position: absolute;
-			content: "";
-			height: 26px;
-			width: 26px;
-			left: 4px;
-			bottom: 4px;
-			background-color: var(--fondo);
-			transition: .4s;
-			border-radius: 50%;
+		.nav-link {
+			color: var(--texto-light);
 		}
 
-		.switch input:checked+.slider {
-			background-color: var(--fondoMenu);
-		}
-
-		.switch input:checked+.slider:before {
-			transform: translateX(26px);
+		.nav-link:hover {
+			color: rgba(255, 255, 255, 0.7);
 		}
 
 		.card-header {
@@ -66,22 +50,18 @@
 		}
 
 		.btn-primary {
-			background-color: #007bff;
-			border-color: #007bff;
+			background-color: var(--boton-primary-light);
+			border: none;
 		}
 
 		.btn-primary:hover {
-			background-color: #0056b3;
-			border-color: #004085;
+			background-color: var(--fondoMenu-light);
 		}
 
 		.form-container {
 			margin-top: 50px;
 		}
 
-		.back-button {
-			margin-top: 20px;
-		}
 	</style>
 </head>
 
@@ -102,7 +82,6 @@
 		</form>
 		<h2>Cambiar Contraseña</h2>
 
-		<!-- Formulario para cambiar la contraseña -->
 		<form th:action="@{/usuario/updatePassword}" th:object="${usuarioChangeDto}" method="post">
 			<input type="hidden" name="id" th:value="${usuario.id}" />
 			<div class="mb-3">
@@ -127,11 +106,11 @@
 			</div>
 			<button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
 		</form>
+		<br>
 		<a th:href="@{/usuarios}" class="btn btn-primary">Volver</a>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="/js/toggle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

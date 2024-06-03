@@ -7,62 +7,113 @@
 	<title>Repuesto - Autorecambios David</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+<style>
+	:root {
+		--fondo-light: #FFFFFF;
+		--texto-light: #000000;
+		--fondoMenu-light: #BAFF39;
+		--fondoGris-light: #DDDDDD;
+		--boton-primary-light: #003366;
+	}
+
+	body {
+		background-color: var(--fondoGris-light);
+		color: var(--texto-light);
+		font-family: Arial, sans-serif;
+	}
+
+	[data-bs-theme="dark"] {
+		--fondo-light: #444444;
+		--fondoMenu-light: #91BDBD;
+		--fondoGris-light: #6E6E6E;
+		--texto-light: #FFFFFF;
+	}
+
+	.navbar {
+		background-color: var(--fondoMenu-light);
+		color: var(--texto-light);
+	}
+
+	.nav-link {
+		color: var(--texto-light);
+	}
+
+	.nav-link:hover {
+		color: rgba(255, 255, 255, 0.7);
+	}
+
+	.card-header {
+		background-color: var(--fondoMenu-light);
+		color: var(--texto-light);
+	}
+
+	.card-body {
+		background-color: var(--fondo-light);
+		color: var(--texto-light);
+	}
+
+	.btn-primary {
+		background-color: var(--boton-primary-light);
+		border: none;
+	}
+
+	.btn-primary:hover {
+		background-color: var(--fondoMenu-light);
+	}
+
+	.btn-outline-primary {
+		color: var(--boton-primary-light);
+		border-color: var(--boton-primary-light);
+	}
+
+	.btn-outline-primary:hover {
+		background-color: var(--boton-primary-light);
+		color: var(--fondo-light);
+	}
+</style>
 
 <body>
 	<div class="row" th:replace="~{menu :: menuSuperior}"></div>
 
 	<div class="container text-center">
-		<div class="row align-items-center">
-			<div class="col col-md-1">
+		<div class="row">
+			<div class="col">
+				<h1 class="my-4">Detalles del Repuesto</h1>
 			</div>
-
-			<div class="col col-md-4">
-				<h1>Repuesto</h1>
-				<div class="card bg-light mb-3" style="max-width: 18rem;">
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card mb-3">
 					<div class="card-header">
-						<span th:text="${repuesto.id}"></span>
+						<h5 class="card-title">ID del Repuesto: <span th:text="${repuesto.id}"></span></h5>
 					</div>
 					<div class="card-body">
 						<h5 class="card-title"><span th:text="${repuesto.nombre}"></span></h5>
-						<p class="card-text">
-						<ul class="list-group">
-							<li
-								class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-								Peso: <span th:text="${repuesto.peso}"></span>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">Peso: <span th:text="${repuesto.peso}"></span>kg</li>
+							<li class="list-group-item">Descripción: <span th:text="${repuesto.descripcion}"></span>
 							</li>
-							<li
-								class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-								Descripcion: <span th:text="${repuesto.descripcion}"></span>
+							<li class="list-group-item">Unidades: <span th:text="${repuesto.unidades}"></span>
 							</li>
-							<li
-								class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-								Unidades: <span th:text="${repuesto.unidades}"></span>
-							</li>
-							<li
-								class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-								Marca coche: <span th:text="${repuesto.coche.marca}"></span>
-							</li>
-							<!--					   <li class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center" th:each="suministra: ${listaSuministra}">-->
-							<!--						Direccion Proveedor: <span th:text="${suministra.proveedor.direccion}" ></span>-->
-							<!--					  </li>-->
+							<li class="list-group-item">Coche: <span
+									th:text="${repuesto.coche.marca + ' ' + repuesto.coche.modelo}"></span></li>
 						</ul>
-						</p>
+					</div>
+
+					<div class="card-footer">
+						<a th:href="@{~/repuestos}" class="btn btn-primary">Volver</a>
+						<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+							<a th:href="@{~/repuesto/edit/{id}(id=${repuesto.id})}" class="btn btn-primary">Editar</a>
+						</th:block>
 					</div>
 				</div>
-
 			</div>
-			<div class="col col-md-7 d-flex justify-content-between align-items-left">
-				<p><a th:href="@{~/repuestos}" class="btn btn-primary btn-sm">volver</a></p>
-				<p><a th:href="@{~/repuesto/edit/{id}(id=${repuesto.id})}"
-						class="btn btn-outline-primary btn-sm">editar</a></p>
-			</div>
-
 		</div>
-
-
-
 	</div>
 </body>
+<script src="/js/toggle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

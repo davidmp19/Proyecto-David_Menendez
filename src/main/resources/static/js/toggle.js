@@ -1,14 +1,25 @@
-const preferedColorScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-const slider = document.getElementById('slider');
-
-const setTheme = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-}
-
-slider.addEventListener('click', () => {
-    let switchToTheme = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
-    setTheme(switchToTheme);
+const toggleButton = document.getElementById('darkModeToggle');
+const htmlElement = document.documentElement;
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        htmlElement.setAttribute('data-bs-theme', savedTheme);
+        updateToggleButton(savedTheme);
+    } else {
+        localStorage.setItem('theme', htmlElement.getAttribute('data-bs-theme'));
+    }
 });
-
-setTheme(localStorage.getItem('theme') || preferedColorScheme);
+function updateToggleButton(theme) {
+    if (theme === 'dark') {
+        toggleButton.innerHTML = '<i class="bi bi-sun"></i> Modo Claro';
+    } else {
+        toggleButton.innerHTML = '<i class="bi bi-moon"></i> Modo Oscuro';
+    }
+}
+toggleButton.addEventListener('click', () => {
+    const isDarkMode = htmlElement.getAttribute('data-bs-theme') === 'dark';
+    const newTheme = isDarkMode ? 'light' : 'dark';
+    htmlElement.setAttribute('data-bs-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateToggleButton(newTheme);
+});

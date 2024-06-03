@@ -1,101 +1,286 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-	<title>AutoRecambios David</title>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+	<title>Autorecambios David</title>
 	<style>
-		.menu {
-			width: 20%;
-			height: 500px;
-			background-color: rgb(145, 189, 189);
-			padding-right: 5%;
-			float: left;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			border-bottom-right-radius: 5px;
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: 999;
-			transform: translateX(-90%);
-			transition: transform 0.3s ease;
+		:root {
+			--fondo-light: #FFFFFF;
+			--texto-light: #000000;
+			--fondoMenu-light: #BAFF39;
+			--fondoGris-light: #DDDDDD;
+			--boton-primary-light: #003366;
 		}
 
-		.menu:hover {
-			transform: translateX(0);
+		body {
+			background-color: var(--fondoGris-light);
+			color: var(--texto-light);
+			font-family: Arial, sans-serif;
 		}
 
-		.logo {
-			position: absolute;
-			top: 5%;
-			right: 20%;
-			left: 20%;
-			width: 150px;
-			height: 75px;
-			border-radius: 100%;
-			border: 1px solid black;
-			background-color: white;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			h3 {
-				font-size: 1em;
-				text-align: center;
-				padding-top: 11%;
-				padding: 10 10 10 10;
-			}
+		[data-bs-theme="dark"] {
+			--fondo-light: #444444;
+			--fondoMenu-light: #91BDBD;
+			--fondoGris-light: #6E6E6E;
+			--texto-light: #FFFFFF;
 		}
 
-		.enlaces {
-			font-size: 1.2em;
-			padding-top: 15%;
-
-			a {
-				text-decoration: none;
-				color: black;
-			}
+		.navbar {
+			background-color: var(--fondoMenu-light);
+			color: var(--texto-light);
 		}
 
-		.enlaces :hover {
-			color: rgb(53, 52, 52);
+		.nav-link {
+			color: var(--texto-light);
 		}
 
-		.boton {
-			position: absolute;
-			font-size: 1em;
-			bottom: 5%;
-			left: 20%;
-			right: 20%;
+		.nav-link:hover {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		.container {
+			background-color: var(--fondo-light);
+			color: var(--texto-light);
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		.header {
+			background-color: var(--fondoMenu-light);
+			color: var(--texto-dark);
+			padding: 20px;
+			border-radius: 10px 10px 0 0;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.marca-title {
+			text-align: center;
+			color: var(--texto-light);
+		}
+
+		.buscador-estrecho {
+			max-width: 200px;
+		}
+
+		.carousel-container {
+			height: 200px;
+			overflow: hidden;
+			position: relative;
+			margin-bottom: 20px;
+		}
+
+		.carousel-container img {
+			height: 100%;
+			width: auto;
+			transition: opacity 0.3s ease-in-out;
+		}
+
+		.carousel-control-prev,
+		.carousel-control-next {
+			background-color: var(--fondoMenu-light);
+			opacity: 1;
+			width: 40px;
+			height: 40px;
+		}
+
+		.carousel-control-next-icon {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 5l7 7-7 7'%3E%3C/path%3E%3C/svg%3E");
+		}
+
+		.carousel-control-prev-icon {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 19l-7-7 7-7'%3E%3C/path%3E%3C/svg%3E");
+		}
+
+		.carousel-container .carousel-item.active img {
+			opacity: 1;
+		}
+
+		.carousel-container .carousel-item img {
+			opacity: 0;
+		}
+
+		.footer {
+			background-color: var(--fondoMenu-light);
+			color: var(--texto-light);
+			padding: 10px;
+			border-radius: 0 0 10px 10px;
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.btn-primary {
+			background-color: var(--boton-primary-light);
+			border: none;
+		}
+
+		.btn-primary:hover {
+			background-color: var(--fondoMenu-light);
+		}
+
+		.feature-card {
+			background-color: var(--fondo-light);
+			border: none;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s;
+		}
+
+		.feature-card:hover {
+			transform: scale(1.05);
+		}
+
+		.feature-icon {
+			font-size: 3rem;
+			margin-bottom: 10px;
+			color: var(--fondoMenu-light);
 		}
 	</style>
-	<title></title>
 </head>
 
 <body>
-
 	<div class="row" th:replace="~{menu :: menuSuperior}"></div>
-
-	<div class="row">
-		<div class="col-1"></div>
-		<div class="col-10">
-			<h1>Bienvenido</h1>
+	<br>
+	<div class="container">
+		<div class="header">
+			<h1>Bienvenido a Autorecambios David</h1>
+			<p>Tu destino para coches, proveedores y repuestos de calidad.</p>
 		</div>
-		<div class="col-1">
+		<br>
+		<h3 class="marca-title">Buscador de repuestos por referencia</h3>
+		<div th:if="${not #authorization.expression('isAuthenticated()')}">
+			<p class="marca-title">Regístrate/Inicia sesión para probarlo</p>
+			<div class="d-flex justify-content-center ">
+				<a th:href="@{~/usuario/registrar}" class="btn btn-primary me-3">Regístrate</a>
+				<a th:href="@{~/login}" class="btn btn-primary">Inicia sesión</a>
+			</div>
+		</div>
+		<br>
+		<form class="d-flex flex-column align-items-center" action="/buscarRepuesto" method="get"
+			th:if="${#authorization.expression('isAuthenticated()')}">
+			<input class="form-control me-2 mb-2 buscador-estrecho" type="search" placeholder="Introduce referencia"
+				aria-label="Search" name="id">
+			<button class="btn btn-primary" type="submit">Buscar</button>
+		</form>
+		<br>
+		<div th:if="${error}" class="alert alert-danger" role="alert">
+			<span th:text="${error}"></span>
+		</div>
+		<br>
+		<div class="row mb-5">
+			<div class="col-md-4 text-center">
+				<a th:href="@{~/coches}" style="text-decoration: none; color: inherit;" class="h-100">
+					<div class="card feature-card h-100">
+						<div class="card-body">
+							<i class="bi bi-car-front feature-icon"></i>
+							<h2 class="card-title">Coches</h2>
+							<p class="card-text">Descubre nuestro inventario de coches y encuentra el que se adapta a
+								tus necesidades.</p>
+							<button class="btn btn-primary">Ver Coches</button>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-4 text-center">
+				<a th:href="@{~/proveedores}" style="text-decoration: none; color: inherit;" class="h-100">
+					<div class="card feature-card h-100">
+						<div class="card-body">
+							<i class="bi bi-people feature-icon"></i>
+							<h2 class="card-title">Proveedores</h2>
+							<p class="card-text">Encuentra el proveedor ideal para tus necesidades de autorepuestos.</p>
+							<button class="btn btn-primary">Ver Proveedores</button>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-md-4 text-center">
+				<a th:href="@{~/repuestos}" style="text-decoration: none; color: inherit;" class="h-100">
+					<div class="card feature-card h-100">
+						<div class="card-body">
+							<i class="bi bi-tools feature-icon"></i>
+							<h2 class="card-title">Repuestos</h2>
+							<p class="card-text">Explora nuestra amplia gama de repuestos y encuentra lo que necesitas.
+							</p>
+							<button class="btn btn-primary">Ver Repuestos</button>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<br>
+		<h3 class="marca-title">Marcas que trabajamos</h3>
+		<br>
+		<div class="carousel-container">
+			<div id="carouselExampleFade" class="carousel slide carousel-fade">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="img/mercedes.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Ford">
+					</div>
+					<div class="carousel-item">
+						<img src="img/ford.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Porsche">
+					</div>
+					<div class="carousel-item">
+						<img src="img/ferrari.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Ferrari">
+					</div>
+					<div class="carousel-item">
+						<img src="img/volkswagen.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Volkswagen">
+					</div>
+					<div class="carousel-item">
+						<img src="img/porsche.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Mercedes">
+					</div>
+					<div class="carousel-item">
+						<img src="img/lamborghini.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Lamborghini">
+					</div>
+					<div class="carousel-item">
+						<img src="img/audi.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Audi">
+					</div>
+					<div class="carousel-item">
+						<img src="img/bmw.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Bmw">
+					</div>
+					<div class="carousel-item">
+						<img src="img/honda.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Honda">
+					</div>
+					<div class="carousel-item">
+						<img src="img/toyota.png" class="d-block mx-auto img-fluid"
+							style="max-width: 300px; max-height: 200px;" alt="Toyota">
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
+					data-bs-slide="prev">
+					<span class="carousel-control-prev-icon"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
+					data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
+
+		<div class="footer">
+			<p>&copy; 2024 Autorecambios David. Todos los derechos reservados.</p>
 		</div>
 	</div>
-
-
-
+	<br>
+	<script src="/js/toggle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
