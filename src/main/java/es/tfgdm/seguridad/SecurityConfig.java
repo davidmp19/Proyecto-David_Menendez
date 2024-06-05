@@ -22,7 +22,7 @@ public class SecurityConfig {
 	    }
 	    
 	    
-	    
+	     
 	   
 	   @Bean
 	   AuthenticationManager authenticationManager(
@@ -46,13 +46,15 @@ public class SecurityConfig {
 	                .permitAll()
 	                .and()
 	                .authorizeRequests(auth->auth
-	                		.requestMatchers("/repuestos", "/suministra", "/proveedores", "/coches","/login","/").permitAll()
-	                		.requestMatchers("/repuestos/del/**", "/proveedor/del/**","/suministra/del/**","/coches/del/**").hasAuthority("ADMIN")
+	                		.requestMatchers("/repuestos", "/suministra", "/proveedores", "/coches","/login","/", "/usuario/registrar", "/estadisticas").permitAll()
+	                		.requestMatchers("/repuestos/del/**", "/proveedor/del/**","/suministra/del/**","/coches/del/**","/usuario/del/**").hasAuthority("ADMIN")
+	                		.requestMatchers("/repuesto/add", "/proveedor/add","/suministra/add","/coche/add").hasAuthority("ADMIN")
 	                		.requestMatchers("/repuesto/edit/**","/proveedor/edit/**","/coche/edit/**").hasAuthority("ADMIN")
 	                		.requestMatchers("/repuestos/**", "/suministra/**", "/proveedores/**", "/coches/**","buscarRepuesto/**").authenticated()
+	                		.requestMatchers("/usuarios/**").authenticated()
 	                		)
 	                .build();
-
+ 
 	    } 
 	   
 } 

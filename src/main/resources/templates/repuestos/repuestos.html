@@ -22,6 +22,7 @@
 		background-color: var(--fondoGris-light);
 		color: var(--texto-light);
 		font-family: Arial, sans-serif;
+		visibility: hidden;
 	}
 
 	[data-bs-theme="dark"] {
@@ -29,11 +30,11 @@
 		--fondoMenu-light: #91BDBD;
 		--fondoGris-light: #6E6E6E;
 		--texto-light: #FFFFFF;
+
 	}
 
 	.navbar {
 		background-color: var(--fondoMenu-light);
-		color: var(--texto-light);
 	}
 
 	.nav-link {
@@ -86,6 +87,30 @@
 	.icon-links a {
 		margin: 0 5px;
 	}
+
+	.btn-menu {
+		background-color: var(--boton-primary-light);
+		border: none;
+		color: white;
+	}
+
+	.btn-menu:hover {
+		background-color: var(--fondoGris-light);
+	}
+
+	.pagination .page-link {
+		color: var(--texto-light);
+	}
+
+	.pagination .page-link:hover {
+		background-color: var(--fondoMenu-light);
+	}
+
+	.pagination .active .page-link {
+		background-color: var(--boton-primary-light);
+		border-color: var(--boton-primary-light);
+		color: white;
+	}
 </style>
 
 <body>
@@ -95,18 +120,34 @@
 	<div class="container">
 		<div class="header">
 			<h1>Nuestros repuestos</h1>
-			<p>Encuentra tu repuesto!</p>
+			<p th:if="${not #authorization.expression('isAuthenticated()')}">Inicia sesión para ver los detalles.</p>
+			<p>¡Encuentra tu repuesto!</p>
 		</div>
 
 		<div class="row">
 			<div class="col-12">
+				<div class="my-3">
+					<form th:action="@{/repuestos}" id="searchForm">
+						<div class="row d-flex">
+							<div class="col-md-8 mt-2">
+								<div class="input-group">
+									<input id="keyword" type="search" name="keyword" th:value="${keyword}" required
+										class="form-control" placeholder="Introduce nombre">
+									<button type="submit" class="btn btn-primary">Buscar</button>
+									<button id="btnClear" class="btn btn-info">Limpiar</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
 				<table class="table table-sm table-hover">
 					<thead class="table-light text-center">
 						<tr>
 							<th scope="col">CODIGO REFERENCIA</th>
 							<th scope="col">NOMBRE</th>
 							<th scope="col">MARCA Y MODELO</th>
-							<th scope="col">VER EN DETALLE</th>
+							<th scope="col" th:if="${#authorization.expression('isAuthenticated()')}">DETALLE</th>
 							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
 								<th scope="col">EDITAR</th>
 								<th scope="col">ELIMINAR</th>
@@ -115,9 +156,9 @@
 					</thead>
 
 					<tbody>
-						<th:block th:if="${#lists.isEmpty(listaRepuestos)}">
+						<th:block th:if="${#lists.isEmpty(listaRepuestos.content)}">
 							<tr>
-								<td colspan="6" class="text-center">No hay repuestos disponibles.</td>
+								<td colspan="6" class="text-center">No se han encontrado repuestos.</td>
 							</tr>
 						</th:block>
 						<tr th:each="repuesto: ${listaRepuestos}" class="text-center">
@@ -130,7 +171,7 @@
 							<td>
 								<span th:text="${repuesto.coche.marca + ' ' + repuesto.coche.modelo}"></span>
 							</td>
-							<td class="icon-links">
+							<td class="icon-links" th:if="${#authorization.expression('isAuthenticated()')}">
 								<a th:href="@{~/repuestos/{id}(id = ${repuesto.id})}">
 									<i class="bi bi-eye" style="font-size: 24px;"></i>
 								</a>
@@ -150,12 +191,31 @@
 						</tr>
 					</tbody>
 				</table>
+				<nav aria-label="Page navigation" th:if="${totalPages > 1}">
+					<ul class="pagination justify-content-center">
+						<li class="page-item" th:classappend="${listaRepuestos.hasPrevious()} ? '' : 'disabled'">
+							<a class="page-link" th:href="@{/repuestos(page=${currentPage - 1}, keyword=${keyword})}"
+								th:aria-disabled="${!listaRepuestos.hasPrevious()}">
+								Anterior
+							</a>
+						</li>
+						<li th:each="page : ${#numbers.sequence(1, totalPages)}" class="page-item"
+							th:classappend="${page == currentPage} ? 'active' : ''">
+							<a class="page-link" th:href="@{/repuestos(page=${page}, keyword=${keyword})}">
+								<span th:text="${page}">1</span>
+							</a>
+						</li>
+						<li class="page-item" th:classappend="${listaRepuestos.hasNext()} ? '' : 'disabled'">
+							<a class="page-link" th:href="@{/repuestos(page=${currentPage + 1}, keyword=${keyword})}"
+								th:aria-disabled="${!listaRepuestos.hasNext()}">
+								Siguiente
+							</a>
+						</li>
+					</ul>
+				</nav>
 				<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
 					<a th:href="@{~/repuesto/add}" class="btn btn-primary">Agregar Repuesto</a>
 				</th:block>
-				<div th:if="${#lists.isEmpty(listaRepuestos)}" class="text-center">
-					<a th:href="@{~/repuesto/add}" class="btn btn-primary">Agregar Repuesto</a>
-				</div>
 			</div>
 		</div>
 
@@ -164,8 +224,17 @@
 		</div>
 	</div>
 	<br>
+
 	<script src="/js/toggle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		$("#btnClear").on("click", function (e) {
+			e.preventDefault();
+			$("#keyword").text("");
+			window.location = "[[@{/repuestos}]]";
+		});
+	</script>
 </body>
 
 </html>

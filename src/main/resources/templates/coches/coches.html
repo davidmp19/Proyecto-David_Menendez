@@ -21,6 +21,7 @@
 			background-color: var(--fondoGris-light);
 			color: var(--texto-light);
 			font-family: Arial, sans-serif;
+			visibility: hidden;
 		}
 
 		[data-bs-theme="dark"] {
@@ -84,6 +85,30 @@
 		.icon-links a {
 			margin: 0 5px;
 		}
+
+		.btn-menu {
+			background-color: var(--boton-primary-light);
+			border: none;
+			color: white;
+		}
+
+		.btn-menu:hover {
+			background-color: var(--fondoGris-light);
+		}
+
+		.pagination .page-link {
+			color: var(--texto-light);
+		}
+
+		.pagination .page-link:hover {
+			background-color: var(--fondoMenu-light);
+		}
+
+		.pagination .active .page-link {
+			background-color: var(--boton-primary-light);
+			border-color: var(--boton-primary-light);
+			color: white;
+		}
 	</style>
 </head>
 
@@ -94,6 +119,7 @@
 	<div class="container">
 		<div class="header">
 			<h1>Nuestro inventario de coches</h1>
+			<p th:if="${not #authorization.expression('isAuthenticated()')}">Inicia sesión para ver los detalles.</p>
 			<p>Encuentra el coche que deseas.</p>
 		</div>
 
@@ -105,7 +131,7 @@
 							<th scope="col">CÓDIGO</th>
 							<th scope="col">MARCA</th>
 							<th scope="col">MODELO</th>
-							<th scope="col">VER EN DETALLE</th>
+							<th scope="col" th:if="${#authorization.expression('isAuthenticated()')}">DETALLE</th>
 							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
 								<th scope="col">EDITAR</th>
 								<th scope="col">ELIMINAR</th>
@@ -128,7 +154,7 @@
 							<td>
 								<span th:text="${coche.modelo}"></span>
 							</td>
-							<td class="icon-links">
+							<td class="icon-links" th:if="${#authorization.expression('isAuthenticated()')}">
 								<a th:href="@{~/coches/{id}(id = ${coche.id})}"><i class="bi bi-eye"
 										style="font-size: 24px;"></i></a>
 							</td>
@@ -145,12 +171,31 @@
 						</tr>
 					</tbody>
 				</table>
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<li class="page-item" th:classappend="${listaCoches.hasPrevious()} ? '' : 'disabled'">
+							<a class="page-link" th:href="@{/coches(page=${listaCoches.number - 1})}"
+								th:aria-disabled="${!listaCoches.hasPrevious()}">
+								Anterior
+							</a>
+						</li>
+						<li th:each="page : ${#numbers.sequence(0, listaCoches.totalPages - 1)}" class="page-item"
+							th:classappend="${page == listaCoches.number} ? 'active' : ''">
+							<a class="page-link" th:href="@{/coches(page=${page})}">
+								<span th:text="${page + 1}">1</span>
+							</a>
+						</li>
+						<li class="page-item" th:classappend="${listaCoches.hasNext()} ? '' : 'disabled'">
+							<a class="page-link" th:href="@{/coches(page=${listaCoches.number + 1})}"
+								th:aria-disabled="${!listaCoches.hasNext()}">
+								Siguiente
+							</a>
+						</li>
+					</ul>
+				</nav>
 				<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
 					<a th:href="@{~/coche/add}" class="btn btn-primary">Agregar Coche</a>
 				</th:block>
-				<div th:if="${#lists.isEmpty(listaCoches)}" class="text-center">
-					<a th:href="@{~/coche/add}" class="btn btn-primary">Agregar Coche</a>
-				</div>
 			</div>
 		</div>
 

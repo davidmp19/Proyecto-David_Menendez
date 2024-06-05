@@ -21,6 +21,7 @@
 			background-color: var(--fondoGris-light);
 			color: var(--texto-light);
 			font-family: Arial, sans-serif;
+			visibility: hidden;
 		}
 
 		[data-bs-theme="dark"] {
@@ -141,6 +142,14 @@
 			margin-bottom: 10px;
 			color: var(--fondoMenu-light);
 		}
+		.btn-menu{
+			background-color:var(--boton-primary-light);
+			border: none;
+			color: white;
+		}
+		.btn-menu:hover{
+			background-color:var(--fondoGris-light);
+		}
 	</style>
 </head>
 
@@ -155,9 +164,8 @@
 		<br>
 		<h3 class="marca-title">Buscador de repuestos por referencia</h3>
 		<div th:if="${not #authorization.expression('isAuthenticated()')}">
-			<p class="marca-title">Regístrate/Inicia sesión para probarlo</p>
+			<p class="marca-title">Inicia sesión para probarlo</p>
 			<div class="d-flex justify-content-center ">
-				<a th:href="@{~/usuario/registrar}" class="btn btn-primary me-3">Regístrate</a>
 				<a th:href="@{~/login}" class="btn btn-primary">Inicia sesión</a>
 			</div>
 		</div>

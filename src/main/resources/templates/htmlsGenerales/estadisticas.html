@@ -7,9 +7,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-</head>
-<style>
-	:root {
+	<style>
+		:root {
 			--fondo-light: #FFFFFF;
 			--texto-light: #000000;
 			--fondoMenu-light: #BAFF39;
@@ -21,6 +20,7 @@
 			background-color: var(--fondoGris-light);
 			color: var(--texto-light);
 			font-family: Arial, sans-serif;
+			visibility: hidden;
 		}
 
 		[data-bs-theme="dark"] {
@@ -43,44 +43,81 @@
 			color: rgba(255, 255, 255, 0.7);
 		}
 
-	h1 {
-		text-align: center;
-	}
 
-	.section {
-		margin-bottom: 20px;
-	}
+		h1 {
+			text-align: center;
+		}
 
-	.section h2 {
-		color: var(--texto-light);
-		border-bottom: 1px solid var(--fondo-light);
-		padding-bottom: 5px;
-	}
+		.section {
+			margin-bottom: 40px;
+			margin-left: 40px;
+			margin-right: 40px;
+		}
 
-	.section ul {
-		list-style-type: none;
-		padding: 0;
-	}
+		.section h2 {
+			color: var(--texto-light);
+			border-bottom: 1px solid var(--fondo-light);
+			padding-bottom: 15px;
+		}
 
-	.section li {
-		background: var(--fondoMenu-light);
-		margin: 5px 0;
-		padding: 10px;
-		border: 1px solid var(--fondoGris-light);
-	}
+		.section ul {
+			padding: 0;
+			list-style: none;
+			
+		}
 
-	.section li:nth-child(odd) {
-		background: var(--fondoGris-light);
-	}
-</style>
+		.section li {
+			background: var(--fondoMenu-light);
+			margin: 10px 0;
+			padding: 15px;
+			border: 1px solid var(--fondoGris-light);
+		}
+
+		.section li:nth-child(odd) {
+			background: var(--fondoGris-light);
+		}
+
+		.btn-menu {
+			background-color: var(--boton-primary-light);
+			border: none;
+			color: white;
+		}
+
+		.btn-menu:hover {
+			background-color: var(--fondoGris-light);
+		}
+
+		.btn-primary {
+			background-color: var(--boton-primary-light);
+			border: none;
+		}
+
+		.btn-primary:hover {
+			background-color: var(--fondoMenu-light);
+		}
+	</style>
+</head>
 
 <body>
 	<div class="row" th:replace="~{menu :: menuSuperior}"></div>
 	<br>
-	<h1>Estadísticas</h1>
+	<div class="row">
+		<div class="col">
+			<h1>Estadísticas</h1>
+		</div>
+	</div>
 
 	<section class="section">
-		<h2>Repuestos con Peso Mayor a 10</h2>
+		<h2>Repuestos con Peso Mayor a <span th:text="${pesoMin}">10</span></h2>
+		<form th:action="@{/estadisticas}" method="get">
+			<div class="row align-items-center">
+				<div class="col-md-2 mb-3">
+					<label for="pesoMin" class="form-label">Peso mínimo</label>
+					<input type="number" id="pesoMin" name="pesoMin" class="form-control" th:value="${pesoMin}">
+					<button type="submit" class="btn btn-primary mt-2 d-block">Actualizar</button>
+				</div>
+			</div>
+		</form>
 		<ul>
 			<li th:each="repuesto : ${repuestosPesados}">
 				<span th:text="${repuesto.nombre}">Nombre</span> -
@@ -90,7 +127,17 @@
 	</section>
 
 	<section class="section">
-		<h2>Repuestos con Menos de 10 Unidades</h2>
+		<h2>Repuestos con Menos de <span th:text="${unidadesMax}">12</span> Unidades</h2>
+		<form th:action="@{/estadisticas}" method="get">
+			<div class="row align-items-center">
+				<div class="col-md-2 mb-3">
+					<label for="unidadesMax" class="form-label">Unidades máximas</label>
+					<input type="number" id="unidadesMax" name="unidadesMax" class="form-control"
+						th:value="${unidadesMax}">
+					<button type="submit" class="btn btn-primary mt-2 d-block">Actualizar</button>
+				</div>
+			</div>
+		</form>
 		<ul>
 			<li th:each="repuesto : ${repuestosPocasUni}">
 				<span th:text="${repuesto.nombre}">Nombre</span> -
@@ -98,6 +145,7 @@
 			</li>
 		</ul>
 	</section>
+
 
 	<section class="section">
 		<h2>Proveedores en Oviedo</h2>
@@ -139,8 +187,10 @@
 			</li>
 		</ul>
 	</section>
+	</div>
+
+	<script src="/js/toggle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script src="/js/toggle.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

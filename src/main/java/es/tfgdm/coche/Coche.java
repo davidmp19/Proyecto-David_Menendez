@@ -28,7 +28,7 @@ public class Coche {
 	 
 	@OneToMany(mappedBy = "coche",fetch=FetchType.EAGER, orphanRemoval = true)
 	private List<Repuesto> repuesto = new ArrayList<Repuesto>();
-	public String getId() {
+	public String getId() { 
 		return id;
 	}
 	public void setId(String id) {
@@ -44,7 +44,7 @@ public class Coche {
 		return modelo;
 	}
 	public void setModelo(String modelo) {
-		this.modelo = modelo;
+		this.modelo = modelo; 
 	}
 	public List<Repuesto> getRepuesto() {
 		return repuesto;
@@ -59,7 +59,7 @@ public class Coche {
 	}
 	
 
-	
+	 
 	
 
 	

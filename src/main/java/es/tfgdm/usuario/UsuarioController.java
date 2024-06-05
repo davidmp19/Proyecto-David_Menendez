@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import es.tfgdm.utils.UsuarioChangeDto;
+import org.springframework.security.core.Authentication;
+import es.tfgdm.dto.UsuarioChangeDto;
 import jakarta.validation.Valid;
 
 @RestController
 public class UsuarioController {
 
     @Autowired
-    UsuarioDao usuarioDao;
+    UsuarioDAO usuarioDao;
  
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -36,6 +37,11 @@ public class UsuarioController {
     } 
     @GetMapping("/usuarios/{id}")
     public ModelAndView getUsuarioPorId(@PathVariable Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Usuario usuarioAutenticado = (Usuario) auth.getPrincipal();
+        if (!usuarioAutenticado.getId().equals(id)) {
+            return new ModelAndView("redirect:/access-denied");
+        }
         Usuario usuario = usuarioDao.findById(id).orElse(null);
         ModelAndView model = new ModelAndView();
         model.setViewName("usuarios/usuario");

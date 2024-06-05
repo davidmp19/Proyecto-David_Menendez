@@ -9,11 +9,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import es.tfgdm.usuario.Usuario;
-import es.tfgdm.usuario.UsuarioDao;
+import es.tfgdm.usuario.UsuarioDAO;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	@Autowired 
-	private UsuarioDao usuarioDao;
+	private UsuarioDAO usuarioDao;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,4 +1,4 @@
-package es.tfgdm.utils;
+package es.tfgdm.dto;
 
 
 public class UsuarioChangeDto {

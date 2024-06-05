@@ -22,6 +22,7 @@
 		background-color: var(--fondoGris-light);
 		color: var(--texto-light);
 		font-family: Arial, sans-serif;
+		visibility: hidden;
 	}
 
 	[data-bs-theme="dark"] {
@@ -63,6 +64,15 @@
 		margin-top: 50px;
 	}
 
+	.btn-menu {
+		background-color: var(--boton-primary-light);
+		border: none;
+		color: white;
+	}
+
+	.btn-menu:hover {
+		background-color: var(--fondoGris-light);
+	}
 </style>
 
 <body>
@@ -95,8 +105,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-4">
 				<a th:href="@{~/usuarios}" class="btn btn-primary btn-block mb-3">Volver</a>
-				<a th:href="@{~/usuario/edit/{id}(id=${usuario.id})}"
-					class="btn btn-primary">Editar</a>
+				<a th:href="@{~/usuario/edit/{id}(id=${usuario.id})}" class="btn btn-primary">Editar</a>
 			</div>
 		</div>
 	</div>

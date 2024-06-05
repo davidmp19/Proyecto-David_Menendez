@@ -2,101 +2,141 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Suministra - Autorecambios David</title>
+    <style>
+        :root {
+            --fondo-light: #FFFFFF;
+            --texto-light: #000000;
+            --fondoMenu-light: #BAFF39;
+            --fondoGris-light: #DDDDDD;
+            --boton-primary-light: #003366;
+        }
 
-	<title>Suministra - Autorecambios David</title>
+        body {
+            background-color: var(--fondoGris-light);
+            color: var(--texto-light);
+            font-family: Arial, sans-serif;
+            visibility: hidden;
+        }
+
+        [data-bs-theme="dark"] {
+            --fondo-light: #444444;
+            --fondoMenu-light: #91BDBD;
+            --fondoGris-light: #6E6E6E;
+            --texto-light: #FFFFFF;
+        }
+
+        .navbar {
+            background-color: var(--fondoMenu-light);
+            color: var(--texto-light);
+        }
+
+        .nav-link {
+            color: var(--texto-light);
+        }
+
+        .nav-link:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .btn-menu {
+            background-color: var(--boton-primary-light);
+            border: none;
+            color: white;
+        }
+
+        .btn-menu:hover {
+            background-color: var(--fondoGris-light);
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border: none;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+        .table thead th {
+            background-color: var(--fondoMenu-light);
+            color: var(--texto-light);
+        }
+
+        .alert {
+            margin: 20px 0;
+        }
+    </style>
 </head>
-<style>
-	:root {
-		--fondo-light: #FFFFFF;
-		--texto-light: #000000;
-		--fondoMenu-light: #BAFF39;
-		--fondoGris-light: #DDDDDD;
-		--boton-primary-light: #003366;
-	}
-
-	body {
-		background-color: var(--fondoGris-light);
-		color: var(--texto-light);
-		font-family: Arial, sans-serif;
-	}
-
-	[data-bs-theme="dark"] {
-		--fondo-light: #444444;
-		--fondoMenu-light: #91BDBD;
-		--fondoGris-light: #6E6E6E;
-		--texto-light: #FFFFFF;
-	}
-
-	.navbar {
-		background-color: var(--fondoMenu-light);
-		color: var(--texto-light);
-	}
-
-	.nav-link {
-		color: var(--texto-light);
-	}
-
-	.nav-link:hover {
-		color: rgba(255, 255, 255, 0.7);
-	}
-</style>
 
 <body>
-	<div class="row" th:replace="~{menu :: menuSuperior}"></div>
-	<br>
-	<div class="container">
-		<div class="row">
-			<div class="col-1"></div>
-			<div class="col-9">
-				<table class="table table-sm table-hover">
-
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Repuesto</th>
-							<th scope="col">Proveedor</th>
-							<th scope="col">Eliminar</th>
-						</tr>
-					</thead>
-					<tbody>
-						<th:block th:if="${#lists.isEmpty(listaSuministra)}">
-							<tr>
-								<td colspan="7">No hay suministros disponibles.</td>
-							</tr>
-						</th:block>
-						<tr th:each="suministra: ${listaSuministra}">
-							<th scope="row">
-								<span th:text="${suministra.id}"></span>
-							</th>
-							<td>
-								<span th:text="${suministra.repuesto.nombre}"></span>
-							</td>
-							<td>
-								<span th:text="${suministra.proveedor.nombre}"></span>
-							</td>
-							<td>
-								<a class="btn btn-danger"
-									th:href="@{/suministra/del/{id}(id = ${suministra.id})}">Eliminar</a>
-							</td>
-						</tr>
-
-
-
-					</tbody>
-				</table>
-			</div>
-			<div class="col-2 align-items-center">
-				<a class="btn btn-warning" th:href="@{/suministra/add}">Relacionar repuesto y proveedor</a>
-			</div>
-		</div>
-	</div>
-	<script src="/js/toggle.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="row" th:replace="~{menu :: menuSuperior}"></div>
+    <br>
+    <div class="container">
+        <div class="header">
+            <h1>Suministros</h1>
+            <p>Gestiona los suministros de repuestos y proveedores.</p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div th:if="${#lists.isEmpty(listaSuministra)}">
+                    <div class="alert alert-warning text-center" role="alert">
+                        No hay suministros disponibles.
+                    </div>
+                </div>
+                <table class="table table-sm table-hover" th:if="${!#lists.isEmpty(listaSuministra)}">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Repuesto</th>
+                            <th scope="col">Proveedor</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="suministra: ${listaSuministra}" class="text-center">
+                            <th scope="row">
+                                <span th:text="${suministra.id}"></span>
+                            </th>
+                            <td>
+                                <span th:text="${suministra.repuesto.nombre}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${suministra.proveedor.nombre}"></span>
+                            </td>
+                            <td>
+                                <a class="btn btn-danger" th:href="@{/suministra/del/{id}(id=${suministra.id})}">
+                                    <i class="bi bi-trash-fill"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 text-end mt-3">
+                <a class="btn btn-warning" th:href="@{/suministra/add}">
+                    <i class="bi bi-plus-circle-fill"></i> Relacionar repuesto y proveedor
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="/js/toggle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

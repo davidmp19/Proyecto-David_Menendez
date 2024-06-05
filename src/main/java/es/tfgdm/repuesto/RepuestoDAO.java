@@ -3,6 +3,8 @@ package es.tfgdm.repuesto;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -21,4 +23,8 @@ public interface RepuestoDAO extends CrudRepository<Repuesto, String> {
 
 	    @Query("SELECT r FROM Repuesto r WHERE r.unidades < ?1")
 	    List<Repuesto> findRepuestosByUnidadesMenosQue(int unidades);
+
+		Page<Repuesto> findAll(Pageable pageable);
+
+		Page<Repuesto> findByNombreContainingIgnoreCase(String keyword, Pageable pageable);
 }

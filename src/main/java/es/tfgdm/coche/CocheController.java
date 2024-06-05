@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.tfgdm.repuesto.Repuesto;
@@ -25,10 +29,12 @@ public class CocheController {
 	CocheDAO cocheDAO;
 	
 	@GetMapping("/coches")
-	public ModelAndView coches() {
+	public ModelAndView coches(@RequestParam(defaultValue = "0") int page) {
+		int size = 5;
+		Pageable pageable = PageRequest.of(page, size);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("coches/coches");
-		List<Coche> listaCoches = (List<Coche>)cocheDAO.findAll();	
+		Page<Coche> listaCoches = cocheDAO.findAll(pageable);	
 		model.addObject("listaCoches", listaCoches);
 		return model;
 	}     
