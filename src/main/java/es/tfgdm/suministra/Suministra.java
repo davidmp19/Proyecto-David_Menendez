@@ -2,7 +2,6 @@ package es.tfgdm.suministra;
 
 import es.tfgdm.proveedor.Proveedor;
 import es.tfgdm.repuesto.Repuesto;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +15,7 @@ public class Suministra {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "idrepuesto") 
 	private Repuesto repuesto; 
 	@ManyToOne 

@@ -53,9 +53,11 @@ public class CocheController {
 		Optional<Coche> coch = cocheDAO.findById(id);
 		if(coch.isPresent()) {
 			model.addObject("coche", coch.get());
+			model.addObject("updating", true);
 			model.setViewName("coches/cocheForm");
 		}
-		else model.setViewName("redirect:/coches");	
+		else  model.setViewName("redirect:/coches");	
+		
 		return model;        
 	}	
 	@GetMapping("/coche/add")
@@ -63,6 +65,7 @@ public class CocheController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("coches/cocheForm");
 		model.addObject("coche", new Coche());
+		model.addObject("updating", false);
 		return model;  
 	}	
 	@GetMapping("/coches/del/{id}")
@@ -73,7 +76,7 @@ public class CocheController {
 	        Coche coche = cocheOptional.get();
 	        List<Repuesto> repuestos = repuestoDAO.findByCoche(coche);
 	        for (Repuesto repuesto : repuestos) {
-	            repuesto.setCoche(null);
+	        	repuesto.setCoche(null);
 	            repuestoDAO.save(repuesto);
 	        }
 	        cocheDAO.deleteById(id);

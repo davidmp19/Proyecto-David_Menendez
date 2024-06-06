@@ -57,57 +57,43 @@
 </style>
 
 <body>
-	<div class="row" th:insert="~{menu :: menuSuperior}"></div>
-	<h1>Enlazar</h1>
-	<div class="container text-center">
-		<div class="row align-items-center">
-			<div class="col col-md-3">
-			</div>
-
-			<div class="col col-md-4">
-				<form th:action="@{/suministra/save}" th:object="${suministra}" method="post">
-					<div class="card bg-light mb-3" style="max-width: 18rem;">
-						<div class="card-header">
-							<input readonly type="text" th:field="*{id}" size=2 />
-						</div>
-						<div class="card-body">
-							<p class="card-text">
-							<ul class="list-group">
-								<li
-									class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-									Repuesto:
-									<select class="form-control" th:field="*{repuesto}">
-										<option th:each="r : ${repuestos}" th:value="${r.id}" th:text="${r.nombre}">
-											OPCION</option>
-									</select>
-								</li>
-								<li
-									class="list-group-item list-group-item-action list-group-item-warning list-group-item d-flex justify-content-between align-items-center">
-									Proveedor
-									<select class="form-control" th:field="*{proveedor}">
-										<option th:each="p : ${proveedores}" th:value="${p.dni}" th:text="${p.nombre}">
-											OPCION</option>
-									</select>
-								</li>
-							</ul>
-							<br>
-							<div th:if="${error}" class="alert alert-danger" role="alert">
-								<span th:text="${error}"></span>
-							</div>
-							</p>
-						</div>
-					</div>
-					<p><input type="submit" class="btn btn-primary" value="enviar" /></p>
-				</form>
-			</div>
-
-			<div class="col col-md-5 d-flex justify-content-between align-items-left">
-				<a th:href="@{/suministra}" class="btn btn-primary btn-sm">volver</a>
-			</div>
-		</div>
-	</div>
+    <div class="row" th:insert="~{menu :: menuSuperior}"></div>
+    <h1 class="text-center my-4">Enlace de Suministros</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form th:action="@{/suministra/save}" th:object="${suministra}" method="post">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title">Formulario de Enlace de Suministros</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <label for="repuesto" class="form-label">Repuesto:</label>
+                                    <select class="form-control" th:field="*{repuesto}" id="repuesto">
+                                        <option th:each="r : ${repuestos}" th:value="${r.id}" th:text="${r.nombre}"></option>
+                                    </select>
+                                </li>
+                                <li class="list-group-item">
+                                    <label for="proveedor" class="form-label">Proveedor:</label>
+                                    <select class="form-control" th:field="*{proveedor}" id="proveedor">
+                                        <option th:each="p : ${proveedores}" th:value="${p.dni}" th:text="${p.nombre}"></option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <a th:href="@{/suministra}" class="btn btn-primary">Volver</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/js/toggle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script src="/js/toggle.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

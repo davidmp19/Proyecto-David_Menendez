@@ -2,6 +2,7 @@ package es.tfgdm.repuesto;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 
 import es.tfgdm.coche.CocheDAO;
+import es.tfgdm.proveedor.Proveedor;
+import es.tfgdm.suministra.Suministra;
 import es.tfgdm.suministra.SuministraDAO;
 import jakarta.validation.Valid;
 
@@ -73,6 +76,13 @@ public class RepuestoController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("repuestos/repuesto");
 		model.addObject("repuesto", repuesto);
+		if (repuesto != null) {
+	        List<Suministra> suministros = suministraDAO.findByRepuestoId(repuesto.getId());
+	        List<Proveedor> proveedores = suministros.stream()
+	                                                  .map(Suministra::getProveedor)
+	                                                  .collect(Collectors.toList());
+	        model.addObject("proveedores", proveedores);
+	    }
 		return model;
 	}
 
@@ -82,6 +92,7 @@ public class RepuestoController {
 		Optional<Repuesto> repu = repuestoDAO.findById(id);
 		if (repu.isPresent()) {
 			model.addObject("repuesto", repu.get());
+			model.addObject("updating", true);
 			model.addObject("coches", cocheDAO.findAll());
 			model.setViewName("repuestos/repuestoForm");
 		} else
@@ -93,6 +104,7 @@ public class RepuestoController {
 	public ModelAndView addRepuesto() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("repuestos/repuestoForm");
+		model.addObject("updating", false);
 		model.addObject("repuesto", new Repuesto());
 		model.addObject("coches", cocheDAO.findAll());
 		return model;

@@ -104,7 +104,7 @@
                         <form th:action="@{~/coche/save}" th:object="${coche}" method="post">
                             <div class="mb-3">
                                 <label for="id" class="form-label">ID</label>
-                                <input type="text" th:field="*{id}" class="form-control" id="id">
+                                <input th:field="*{id}" class="form-control" id="id" th:readonly="${updating}">
                             </div>
                             <div class="mb-3">
                                 <label for="marca" class="form-label">Marca</label>

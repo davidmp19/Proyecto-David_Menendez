@@ -26,7 +26,7 @@ public class Coche {
 	private String modelo;
 	
 	 
-	@OneToMany(mappedBy = "coche",fetch=FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "coche",fetch=FetchType.EAGER)
 	private List<Repuesto> repuesto = new ArrayList<Repuesto>();
 	public String getId() { 
 		return id;

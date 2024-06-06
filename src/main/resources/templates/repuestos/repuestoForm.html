@@ -104,7 +104,7 @@
 						<form th:action="@{~/repuesto/save}" th:object="${repuesto}" method="post">
 							<div class="mb-3">
 								<label for="id" class="form-label">Código de referencia</label>
-								<input type="text" th:field="*{id}" class="form-control" id="id">
+								<input type="text" th:field="*{id}" class="form-control" id="id" th:readonly="${updating}">
 							</div>
 							<div class="mb-3">
 								<label for="nombre" class="form-label">Nombre</label>

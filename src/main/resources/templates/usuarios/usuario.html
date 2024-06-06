@@ -1,116 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Usuario - Autorecambios David</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Usuario - Autorecambios David</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <style>
-	:root {
-		--fondo-light: #FFFFFF;
-		--texto-light: #000000;
-		--fondoMenu-light: #BAFF39;
-		--fondoGris-light: #DDDDDD;
-		--boton-primary-light: #003366;
-	}
+    :root {
+        --fondo-light: #FFFFFF;
+        --texto-light: #000000;
+        --fondoMenu-light: #BAFF39;
+        --fondoGris-light: #DDDDDD;
+        --boton-primary-light: #003366;
+    }
 
-	body {
-		background-color: var(--fondoGris-light);
-		color: var(--texto-light);
-		font-family: Arial, sans-serif;
-		visibility: hidden;
-	}
+    body {
+        background-color: var(--fondoGris-light);
+        color: var(--texto-light);
+        font-family: Arial, sans-serif;
+    }
 
-	[data-bs-theme="dark"] {
-		--fondo-light: #444444;
-		--fondoMenu-light: #91BDBD;
-		--fondoGris-light: #6E6E6E;
-		--texto-light: #FFFFFF;
-	}
+    [data-bs-theme="dark"] {
+        --fondo-light: #444444;
+        --fondoMenu-light: #91BDBD;
+        --fondoGris-light: #6E6E6E;
+        --texto-light: #FFFFFF;
+    }
 
-	.navbar {
-		background-color: var(--fondoMenu-light);
-		color: var(--texto-light);
-	}
+    .navbar {
+        background-color: var(--fondoMenu-light);
+    }
 
-	.nav-link {
-		color: var(--texto-light);
-	}
+    .nav-link {
+        color: var(--texto-light);
+    }
 
-	.nav-link:hover {
-		color: rgba(255, 255, 255, 0.7);
-	}
+    .nav-link:hover {
+        color: rgba(255, 255, 255, 0.7);
+    }
 
-	.card-header {
-		background-color: #343a40;
-		color: white;
-		font-weight: bold;
-	}
+    .card-header {
+        background-color: var(--fondoMenu-light);
+        color: var(--texto-light);
+    }
 
-	.btn-primary {
-		background-color: var(--boton-primary-light);
-		border: none;
-	}
+    .card-body {
+        background-color: var(--fondo-light);
+        color: var(--texto-light);
+    }
 
-	.btn-primary:hover {
-		background-color: var(--fondoMenu-light);
-	}
+    .btn-primary {
+        background-color: var(--boton-primary-light);
+        border: none;
+    }
 
-	.form-container {
-		margin-top: 50px;
-	}
+    .btn-primary:hover {
+        background-color: var(--fondoMenu-light);
+    }
 
-	.btn-menu {
-		background-color: var(--boton-primary-light);
-		border: none;
-		color: white;
-	}
+    .btn-outline-primary {
+        color: var(--boton-primary-light);
+        border-color: var(--boton-primary-light);
+    }
 
-	.btn-menu:hover {
-		background-color: var(--fondoGris-light);
-	}
+    .btn-outline-primary:hover {
+        background-color: var(--boton-primary-light);
+        color: var(--fondo-light);
+    }
+
+    .btn-menu {
+        background-color: var(--boton-primary-light);
+        border: none;
+        color: white;
+    }
+
+    .btn-menu:hover {
+        background-color: var(--fondoGris-light);
+    }
+
+    .proveedor-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .proveedor-item {
+        background-color: var(--fondo-light);
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+        padding: 15px;
+    }
 </style>
 
 <body>
-	<div class="row" th:replace="~{menu :: menuSuperior}"></div>
-	<div class="container text-center">
-		<div class="row align-items-center">
-			<div class="col-md-12">
-				<h1 class="mb-4">Detalles de Usuario</h1>
-			</div>
-		</div>
-		<div class="row justify-content-center">
-			<div class="col-md-4">
-				<div class="card border-primary mb-3">
-					<div class="card-header bg-primary text-white">Id:
-						<span th:text="${usuario.id}"></span>
-					</div>
-					<div class="card-body">
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item bg-light d-flex justify-content-between align-items-center">
-								Nombre Usuario: <span th:text="${usuario.username}"></span>
-							</li>
-							<li class="list-group-item bg-light d-flex justify-content-between align-items-center">
-								Contraseña: <span th:text="${usuario.password}"></span>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row justify-content-center">
-			<div class="col-md-4">
-				<a th:href="@{~/usuarios}" class="btn btn-primary btn-block mb-3">Volver</a>
-				<a th:href="@{~/usuario/edit/{id}(id=${usuario.id})}" class="btn btn-primary">Editar</a>
-			</div>
-		</div>
-	</div>
-	<script src="/js/toggle.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <div class="row" th:replace="~{menu :: menuSuperior}"></div>
 
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h1 class="my-4">Detalles del Usuario</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title">ID del Usuario: <span th:text="${usuario.id}"></span></h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Nombre Usuario: <span th:text="${usuario.username}"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-footer">
+                        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                            <a th:href="@{~/usuario/edit/{id}(id=${usuario.id})}" class="btn btn-primary">Editar nombre o contraseña</a>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="/js/toggle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </html>

@@ -81,6 +81,20 @@
 	.btn-outline-primary:hover {
 		background-color: var(--boton-primary-light);
 	}
+
+	.repuesto-list {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.repuesto-item {
+		background-color: var(--fondo-light);
+		border-radius: 5px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		margin-bottom: 10px;
+		padding: 15px;
+	}
 </style>
 
 <body>
@@ -103,13 +117,24 @@
 							<li class="list-group-item">Nombre: <span th:text="${proveedor.nombre}"></span></li>
 							<li class="list-group-item">Dirección: <span th:text="${proveedor.direccion}"></span>
 							</li>
+							<li class="list-group-item">Repuesto/s:
+								<ul class="repuesto-list">
+									<th:block th:if="${#lists.isEmpty(repuestos)}">
+										<li class="repuesto-item">No hay repuestos disponibles para este proveedor.</li>
+									</th:block>
+									<th:block th:each="repuesto : ${repuestos}">
+										<li class="repuesto-item"><span th:text="${repuesto.nombre}"></span></li>
+									</th:block>
+								</ul>
+							</li>
 						</ul>
 					</div>
 
 					<div class="card-footer">
 						<a th:href="@{~/proveedores}" class="btn btn-primary">Volver</a>
 						<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-							<a th:href="@{~/proveedor/edit/{dni}(dni=${proveedor.dni})}" class="btn btn-primary">Editar</a>
+							<a th:href="@{~/proveedor/edit/{dni}(dni=${proveedor.dni})}"
+								class="btn btn-primary">Editar</a>
 						</th:block>
 					</div>
 				</div>

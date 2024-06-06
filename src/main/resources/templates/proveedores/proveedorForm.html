@@ -104,7 +104,7 @@
                         <form th:action="@{~/proveedor/save}" th:object="${proveedor}" method="post">
                             <div class="mb-3">
                                 <label for="dni" class="form-label">DNI</label>
-                                <input type="text" th:field="*{dni}" class="form-control" id="dni">
+                                <input type="text" th:field="*{dni}" class="form-control" id="dni" th:readonly="${updating}">
                             </div>
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre</label>

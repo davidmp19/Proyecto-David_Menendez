@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +52,13 @@ public class ProveedorController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("proveedores/proveedor");
 		model.addObject("proveedor", proveedor);
-		
+		if (proveedor != null) {
+			List<Suministra> suministros=suministraDAO.findByProveedorDni(proveedor.getDni());
+			List<Repuesto> repuestos = suministros.stream()
+					 								.map(Suministra::getRepuesto)
+					 								.collect(Collectors.toList());
+			model.addObject("repuestos", repuestos);
+		}
 		return model;
 	}
 	@GetMapping("/proveedor/edit/{dni}")
@@ -63,6 +70,7 @@ public class ProveedorController {
 		if(pro.isPresent()) {
 			
 			model.addObject("proveedor", pro.get());
+			model.addObject("updating", true);
 			model.setViewName("proveedores/proveedorForm");
 		}
 		else model.setViewName("redirect:/proveedores");	
@@ -77,6 +85,7 @@ public class ProveedorController {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("proveedores/proveedorForm");
 		model.addObject("proveedor", new Proveedor());
+		model.addObject("updating", false);
 		return model;
 	}	
 	

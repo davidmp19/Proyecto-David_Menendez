@@ -37,7 +37,7 @@ public class TallerController {
 		model.setViewName("htmlsGenerales/logout");
 		return model;
 	}
-
+ 
 	@GetMapping("/access-denied")
 	public ModelAndView accessDenied() {
 		ModelAndView model = new ModelAndView();
@@ -69,5 +69,5 @@ public class TallerController {
 	    model.addObject("pesoMin", pesoMin);
 	    model.addObject("unidadesMax", unidadesMax);
 	    return model;
-	}
+	}   
 }

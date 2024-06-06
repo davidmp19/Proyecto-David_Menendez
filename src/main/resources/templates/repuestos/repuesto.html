@@ -83,6 +83,19 @@
 	.btn-menu:hover {
 		background-color: var(--fondoGris-light);
 	}
+	.proveedor-list {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.proveedor-item {
+		background-color: var(--fondo-light);
+		border-radius: 5px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		margin-bottom: 10px;
+		padding: 15px;
+	}
 </style>
 
 <body>
@@ -110,6 +123,16 @@
 							</li>
 							<li class="list-group-item">Coche: <span
 									th:text="${repuesto.coche.marca + ' ' + repuesto.coche.modelo}"></span></li>
+							<li class="list-group-item">Proveedor/es:
+								<ul class="proveedor-list">
+									<th:block th:if="${#lists.isEmpty(proveedores)}">
+										<li class="proveedor-item">No hay proveedores que suministren este repuesto</li>
+									</th:block>
+									<th:block th:each="proveedor : ${proveedores}">
+										<li class="proveedor-item"><span th:text="${proveedor.nombre}"></span></li>
+									</th:block>
+								</ul>
+							</li>
 						</ul>
 					</div>
 
@@ -121,7 +144,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
 </body>

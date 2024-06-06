@@ -125,26 +125,28 @@
 
 		<div class="row">
 			<div class="col-12">
+				<div class="col-md-4 mt-2 mx-auto">
+					<th:block th:if="${#lists.isEmpty(listaCoches.content)}">
+						<p class="alert alert-danger text-center">No se han encontrado coches.</p>
+					</th:block>
+				</div>
+				<br>
 				<table class="table table-sm table-hover">
-					<thead class="table-light text-center">
+					<thead class="table-light">
 						<tr>
 							<th scope="col">CÓDIGO</th>
 							<th scope="col">MARCA</th>
 							<th scope="col">MODELO</th>
-							<th scope="col" th:if="${#authorization.expression('isAuthenticated()')}">DETALLE</th>
+							<th scope="col" class="text-center"
+								th:if="${#authorization.expression('isAuthenticated()')}">DETALLE</th>
 							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-								<th scope="col">EDITAR</th>
-								<th scope="col">ELIMINAR</th>
+								<th scope="col" class="text-center">EDITAR</th>
+								<th scope="col" class="text-center">ELIMINAR</th>
 							</th:block>
 						</tr>
 					</thead>
 					<tbody>
-						<th:block th:if="${#lists.isEmpty(listaCoches)}">
-							<tr>
-								<td colspan="6" class="text-center">No hay coches disponibles.</td>
-							</tr>
-						</th:block>
-						<tr th:each="coche: ${listaCoches}" class="text-center">
+						<tr th:each="coche: ${listaCoches}">
 							<td>
 								<a th:text="${coche.id}"></a>
 							</td>
@@ -154,16 +156,17 @@
 							<td>
 								<span th:text="${coche.modelo}"></span>
 							</td>
-							<td class="icon-links" th:if="${#authorization.expression('isAuthenticated()')}">
+							<td class="icon-links text-center"
+								th:if="${#authorization.expression('isAuthenticated()')}">
 								<a th:href="@{~/coches/{id}(id = ${coche.id})}"><i class="bi bi-eye"
 										style="font-size: 24px;"></i></a>
 							</td>
 							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-								<td>
+								<td class="text-center">
 									<a th:href="@{~/coche/edit/{id}(id=${coche.id})}"><i class="bi bi-pencil-square"
 											style="font-size: 24px;"></i></a>
 								</td>
-								<td>
+								<td class="text-center">
 									<a th:href="@{/coches/del/{id}(id = ${coche.id})}"><i
 											class="bi bi-trash-fill text-danger" style="font-size: 24px;"></i></a>
 								</td>
@@ -171,7 +174,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<nav aria-label="Page navigation">
+				<nav aria-label="Page navigation" th:if="${totalPages > 1}">
 					<ul class="pagination justify-content-center">
 						<li class="page-item" th:classappend="${listaCoches.hasPrevious()} ? '' : 'disabled'">
 							<a class="page-link" th:href="@{/coches(page=${listaCoches.number - 1})}"

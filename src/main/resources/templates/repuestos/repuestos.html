@@ -129,7 +129,7 @@
 				<div class="my-3">
 					<form th:action="@{/repuestos}" id="searchForm">
 						<div class="row d-flex">
-							<div class="col-md-8 mt-2">
+							<div class="col-md-5 mt-2">
 								<div class="input-group">
 									<input id="keyword" type="search" name="keyword" th:value="${keyword}" required
 										class="form-control" placeholder="Introduce nombre">
@@ -139,29 +139,30 @@
 							</div>
 						</div>
 					</form>
-
 				</div>
+				<div class="col-md-4 mt-2 mx-auto">
+					<th:block th:if="${#lists.isEmpty(listaRepuestos.content)}">
+						<p class="alert alert-danger text-center">No se han encontrado repuestos.</p>
+					</th:block>
+				</div>
+				<br>
 				<table class="table table-sm table-hover">
-					<thead class="table-light text-center">
+					<thead class="table-light">
 						<tr>
 							<th scope="col">CODIGO REFERENCIA</th>
 							<th scope="col">NOMBRE</th>
 							<th scope="col">MARCA Y MODELO</th>
-							<th scope="col" th:if="${#authorization.expression('isAuthenticated()')}">DETALLE</th>
+							<th scope="col" th:if="${#authorization.expression('isAuthenticated()')}"
+								class="text-center">DETALLE</th>
 							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-								<th scope="col">EDITAR</th>
-								<th scope="col">ELIMINAR</th>
+								<th scope="col" class="text-center">EDITAR</th>
+								<th scope="col" class="text-center">ELIMINAR</th>
 							</th:block>
 						</tr>
 					</thead>
 
 					<tbody>
-						<th:block th:if="${#lists.isEmpty(listaRepuestos.content)}">
-							<tr>
-								<td colspan="6" class="text-center">No se han encontrado repuestos.</td>
-							</tr>
-						</th:block>
-						<tr th:each="repuesto: ${listaRepuestos}" class="text-center">
+						<tr th:each="repuesto: ${listaRepuestos}">
 							<td>
 								<a th:text="${repuesto.id}"></a>
 							</td>
@@ -169,15 +170,16 @@
 								<span th:text="${repuesto.nombre}"></span>
 							</td>
 							<td>
-								<span th:text="${repuesto.coche.marca + ' ' + repuesto.coche.modelo}"></span>
+								<span th:text="${repuesto.coche != null ? repuesto.coche.marca + ' ' + repuesto.coche.modelo : 'No asignado'}"></span>
 							</td>
-							<td class="icon-links" th:if="${#authorization.expression('isAuthenticated()')}">
+							<td class="icon-links text-center"
+								th:if="${#authorization.expression('isAuthenticated()')}">
 								<a th:href="@{~/repuestos/{id}(id = ${repuesto.id})}">
 									<i class="bi bi-eye" style="font-size: 24px;"></i>
 								</a>
 							</td>
 							<th:block th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-								<td class="icon-links">
+								<td class="icon-links text-center">
 									<a th:href="@{~/repuesto/edit/{id}(id=${repuesto.id})}">
 										<i class="bi bi-pencil-square" style="font-size: 24px;"></i>
 									</a>
