@@ -16,10 +16,8 @@ public class Proveedor {
 	@Id
 	private String dni;
 	
-	@Size(min=4, max=30, message="minimo 4 caracteres y maximo 15")
 	private String nombre;
 	
-	@Size(min=5, max=50, message="La dirección debe tener menos de 50 caracteres")
 	private String direccion;
 	
 

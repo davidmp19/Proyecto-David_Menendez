@@ -119,11 +119,22 @@ public class RepuestoController {
 	}
 
 	@PostMapping("/repuesto/save")
-	public ModelAndView formRepuesto(@ModelAttribute @Valid Repuesto repuesto, BindingResult bindingResult) {
+	public ModelAndView formRepuesto(@ModelAttribute @Valid Repuesto repuesto, BindingResult bindingResult,
+			@RequestParam(required = false) boolean updating) {
 		ModelAndView model = new ModelAndView();
-		if (bindingResult.hasErrors()) {
+		
+		if (updating != true && bindingResult.hasErrors()) {
 			model.setViewName("repuestos/repuestoForm");
 			model.addObject("repuesto", repuesto);
+			model.addObject("updating", updating);
+			model.addObject("coches", cocheDAO.findAll());
+			return model;
+		}
+		if(updating == false && repuestoDAO.existsById(repuesto.getId())) {
+			bindingResult.rejectValue("id", "error.repuesto", "El ID ya existe");
+			model.setViewName("repuestos/repuestoForm");
+			model.addObject("repuesto", repuesto);
+			model.addObject("updating", updating);
 			model.addObject("coches", cocheDAO.findAll());
 			return model;
 		}

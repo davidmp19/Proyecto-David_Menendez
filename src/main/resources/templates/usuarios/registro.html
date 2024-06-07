@@ -29,7 +29,7 @@
 								<form th:action="@{/usuario/save}" th:object="${usuario}" method="post">
 									<div data-mdb-input-init class="form-outline form-white mb-4">
 										<input type="text" th:field="*{username}" id="username"
-											class="form-control form-control-lg" />
+											class="form-control form-control-lg" required minlength="3" maxlength="20"/>
 										<label class="form-label" for="username">Nombre Usuario</label>
 										<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
 											class="text-warning"></p>
@@ -37,7 +37,7 @@
 
 									<div data-mdb-input-init class="form-outline form-white mb-4">
 										<input type="password" th:field="*{password}" id="password"
-											class="form-control form-control-lg" />
+											class="form-control form-control-lg" required minlength="3" maxlength="20"/>
 										<label class="form-label" for="password">Contraseña</label>
 										<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
 											class="text-danger"></p>

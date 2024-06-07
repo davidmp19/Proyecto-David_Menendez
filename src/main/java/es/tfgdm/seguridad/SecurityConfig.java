@@ -54,6 +54,8 @@ public class SecurityConfig {
 	                		.requestMatchers("/repuestos/**", "/proveedores/**", "/coches/**","buscarRepuesto/**","/logout").authenticated()
 	                		.requestMatchers("/usuarios/**").authenticated()
 	                		)
+	                .exceptionHandling(exception -> exception
+	                        .accessDeniedPage("/access-denied"))
 	                .build();
  
 	    } 

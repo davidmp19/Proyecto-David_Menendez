@@ -115,7 +115,7 @@ public class UsuarioController {
         }
         usuario.setUsername(usuarioChangeDto.getNewUsername());
         usuarioDao.save(usuario);
-        model.setViewName("redirect:/usuarios");
+        model.setViewName("redirect:/");
         return model;
     }
 	 
@@ -148,7 +148,7 @@ public class UsuarioController {
         }
         usuario.setPassword(bCryptPasswordEncoder.encode(usuarioChangeDto.getNewPassword()));
         usuarioDao.save(usuario);
-        model.setViewName("redirect:/usuarios");
+        model.setViewName("redirect:/");
         return model;
     }
 }

@@ -83,6 +83,7 @@
 	.btn-menu:hover {
 		background-color: var(--fondoGris-light);
 	}
+
 	.proveedor-list {
 		list-style-type: none;
 		padding: 0;
@@ -121,8 +122,10 @@
 							</li>
 							<li class="list-group-item">Unidades: <span th:text="${repuesto.unidades}"></span>
 							</li>
-							<li class="list-group-item">Coche: <span
-									th:text="${repuesto.coche.marca + ' ' + repuesto.coche.modelo}"></span></li>
+							<li class="list-group-item">Coche:
+								<span th:if="${repuesto.coche != null}" th:text="${repuesto.coche.marca + ' ' + repuesto.coche.modelo}"></span>
+								<span th:if="${repuesto.coche == null}">No pertenece a ningún coche</span>
+							</li>
 							<li class="list-group-item">Proveedor/es:
 								<ul class="proveedor-list">
 									<th:block th:if="${#lists.isEmpty(proveedores)}">

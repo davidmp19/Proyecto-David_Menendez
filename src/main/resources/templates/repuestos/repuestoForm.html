@@ -102,40 +102,41 @@
 					</div>
 					<div class="card-body">
 						<form th:action="@{~/repuesto/save}" th:object="${repuesto}" method="post">
+							<input type="hidden" name="updating" th:value="${updating}">
 							<div class="mb-3">
 								<label for="id" class="form-label">Código de referencia</label>
-								<input type="text" th:field="*{id}" class="form-control" id="id" th:readonly="${updating}">
+								<input type="text" th:field="*{id}" class="form-control" id="id"
+									th:readonly="${updating}" required>
+								<div th:if="${#fields.hasErrors('id')} and ${repuesto.id != null}" class="text-danger">
+									<span th:errors="*{id}"></span>
+								</div>
 							</div>
 							<div class="mb-3">
 								<label for="nombre" class="form-label">Nombre</label>
-								<input type="text" th:field="*{nombre}" class="form-control" id="nombre">
-								<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger">
-									Introduzca un nombre válido
-								</div>
+								<input type="text" th:field="*{nombre}" class="form-control" id="nombre" required
+									minlength="3" maxlength="30">
 							</div>
 							<div class="mb-3">
 								<label for="peso" class="form-label">Peso(en Kg)</label>
-								<input type="text" th:field="*{peso}" class="form-control" id="peso">
-								<div th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}" class="text-danger">
-									Introduzca un peso válido
-								</div>
+								<input type="text" th:field="*{peso}" class="form-control" id="peso" required
+									pattern="[0-9]+">
 							</div>
 							<div class="mb-3">
 								<label for="descripcion" class="form-label">Descripción</label>
-								<input type="text" th:field="*{descripcion}" class="form-control" id="descripcion">
+								<input type="text" th:field="*{descripcion}" class="form-control" id="descripcion"
+									required min="0.01" step="0.01">
 							</div>
 							<div class="mb-3">
 								<label for="unidades" class="form-label">Unidades disponibles</label>
-								<input type="text" th:field="*{unidades}" class="form-control" id="unidades">
-								<div th:if="${#fields.hasErrors('unidades')}" th:errors="*{unidades}" class="text-danger">
-									Introduzca un número válido
-								</div>
+								<input type="text" th:field="*{unidades}" class="form-control" id="unidades" required
+									min="0">
 							</div>
 							<div class="mb-3">
 								<label for="coche" class="form-label">Marca y modelo del coche</label>
 								<select class="form-control" th:field="*{coche}" id="coche">
 									<option value="">No asignado</option>
-									<option th:each="c : ${coches}" th:value="${c.id}" th:text="${c.marca} + ' ' + ${c.modelo}">OPCION
+									<option th:each="c : ${coches}" th:value="${c.id}"
+										th:text="${c.marca} + ' ' + ${c.modelo}">OPCION
 									</option>
 								</select>
 							</div>

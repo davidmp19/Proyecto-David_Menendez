@@ -7,9 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 import es.tfgdm.coche.Coche;
@@ -26,16 +23,12 @@ public class Repuesto {
 	@Id
 	private String id;
 	
-	@Size(min=4, max=30, message="minimo 2 caracteres y maximo 30")
 	private String nombre;
 	
-	@Min(value = 1, message = "El peso debe ser como mínimo 1")
-	@Max(value = 2000, message = "El peso debe ser como máximo 2000")
 	private int peso;	
 	
 	private String descripcion;
 	
-	@Min(value = 0, message = "Las unidades deben ser un número positivo")
 	private int unidades;	
 	
 	@ManyToOne(fetch=FetchType.EAGER)

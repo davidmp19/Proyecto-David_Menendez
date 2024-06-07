@@ -7,13 +7,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.tfgdm.repuesto.Repuesto;
@@ -21,7 +22,7 @@ import es.tfgdm.suministra.Suministra;
 import es.tfgdm.suministra.SuministraDAO;
 import jakarta.validation.Valid;
 
-@RestController
+@Controller
 public class ProveedorController {
 	
 	
@@ -131,11 +132,20 @@ public class ProveedorController {
 		}
 	@PostMapping("/proveedor/save")
 	public ModelAndView proveedorForm(@ModelAttribute @Valid Proveedor proveedor,
-			BindingResult bindingResult) {	
+			BindingResult bindingResult,
+			@RequestParam(required = false) boolean updating) {	
 		ModelAndView model = new ModelAndView();
-		if(bindingResult.hasErrors()) {
+		if(updating != true && bindingResult.hasErrors()) {
 			model.setViewName("proveedores/proveedorForm");
-			model.addObject("proveedor", new Proveedor());
+			model.addObject("proveedor", proveedor);
+			model.addObject("updating", updating);
+			return model;
+		}
+		if(updating == false && proveedorDAO.existsById(proveedor.getDni())){
+			bindingResult.rejectValue("dni","error.proveedor", "El dni ya pertenece a un proveedor");
+			model.setViewName("proveedores/proveedorForm");
+			model.addObject("proveedor", proveedor);
+			model.addObject("updating", updating);
 			return model;
 		}
 	    proveedorDAO.save(proveedor);
