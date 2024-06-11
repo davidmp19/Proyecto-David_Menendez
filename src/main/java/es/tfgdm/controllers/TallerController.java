@@ -59,7 +59,7 @@ public class TallerController {
 	    List<Proveedor> proveedorRepuestos = estadisticasService.getProveedoresByRepuestosCountGreaterThan(1);
 	    List<Coche> getCochesByMarca = estadisticasService.getCochesByMarca("mercedes");
 	    List<Coche> getCochesByRepuestoCount = estadisticasService.getCochesByRepuestoCountGreaterThan(1);
- 
+    
 	    model.addObject("repuestosPesados", repuestosPesados);
 	    model.addObject("repuestosPocasUni", repuestosPocasUni);
 	    model.addObject("proveedorDireccion", proveedorDireccion);

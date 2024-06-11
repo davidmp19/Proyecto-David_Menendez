@@ -89,8 +89,8 @@
 				<div th:if="${#fields.hasErrors('newUsername')}" th:errors="*{newUsername}" class="text-danger"></div>
 			</div>
 			<button type="submit" class="btn btn-primary">Actualizar Nombre</button>
-		</form>
-		<h2>Cambiar Contraseña</h2>
+		</form> 
+		<h2>Cambiar Contraseña</h2> 
 
 		<form th:action="@{/usuario/updatePassword}" th:object="${usuarioChangeDto}" method="post">
 			<input type="hidden" name="id" th:value="${usuario.id}" />

@@ -129,9 +129,16 @@
 	<div class="container">
 		<div class="header">
 				<h1>Estadísticas</h1>
+				<div th:if="${not #authorization.expression('isAuthenticated()')}">
+				Inicia sesión para imprimir las estadísticas personalizables
+			</div>
+			<div th:if="${#authorization.expression('isAuthenticated()')}">
+				<button class="btn btn-primary">
+					 <i class="bi bi-printer"></i> Imprimir</button>
+			</div>
 		</div>
 		<section class="section">
-			<h2>Repuestos con Peso Mayor a <span th:text="${pesoMin}">10</span> Kg</h2>
+			<h2>Repuestos con peso mayor a <span th:text="${pesoMin}">10</span> Kg</h2>
 			<form th:action="@{/estadisticas}" method="get">
 				<div class="row align-items-center">
 					<div class="col-md-2 mb-3">
@@ -150,7 +157,7 @@
 		</section>
 
 		<section class="section">
-			<h2>Repuestos con Menos de <span th:text="${unidadesMax}">12</span> Unidades</h2>
+			<h2>Repuestos con menos de <span th:text="${unidadesMax}">12</span> unidades</h2>
 			<form th:action="@{/estadisticas}" method="get">
 				<div class="row align-items-center">
 					<div class="col-md-2 mb-3">
@@ -180,7 +187,7 @@
 		</section>
 
 		<section class="section">
-			<h2>Proveedores con Más de 2 Repuestos</h2>
+			<h2>Proveedores con más de 2 repuestos</h2>
 			<ul>
 				<li th:each="proveedor : ${proveedorRepuestos}">
 					<span th:text="${proveedor.nombre}">Nombre</span> -
@@ -190,7 +197,7 @@
 		</section>
 
 		<section class="section">
-			<h2>Coches de Marca Mercedes</h2>
+			<h2>Coches de marca mercedes</h2>
 			<ul>
 				<li th:each="coche : ${getCochesByMarca}">
 					<span th:text="${coche.marca}">Marca</span> -
@@ -200,7 +207,7 @@
 		</section>
 
 		<section class="section">
-			<h2>Coches con Más de 1 Repuesto</h2>
+			<h2>Coches con más de 1 repuesto</h2>
 			<ul>
 				<li th:each="coche : ${getCochesByRepuestoCount}">
 					<span th:text="${coche.marca}">Marca</span> -
