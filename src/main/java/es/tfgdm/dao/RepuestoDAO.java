@@ -1,14 +1,15 @@
-package es.tfgdm.repuesto;
+package es.tfgdm.dao;
 
 
 import java.util.List;
 
+import es.tfgdm.entity.Repuesto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import es.tfgdm.coche.Coche;
+import es.tfgdm.entity.Coche;
 
 
 public interface RepuestoDAO extends CrudRepository<Repuesto, String> {
@@ -18,6 +19,7 @@ public interface RepuestoDAO extends CrudRepository<Repuesto, String> {
 
 	 	List<Repuesto> findByCoche(Coche coche);
 	 
+	 	//Dos de las querys de las estadisticas
 	 	@Query("SELECT r FROM Repuesto r WHERE r.peso > ?1")
 	    List<Repuesto> findRepuestosByPesoMasGrandeQue(int peso);
 

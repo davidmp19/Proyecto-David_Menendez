@@ -1,4 +1,4 @@
-package es.tfgdm.usuario;
+package es.tfgdm.entity;
 
 
 import java.util.ArrayList;
@@ -27,13 +27,14 @@ public class Usuario implements UserDetails{
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
 
-private String username;
+private String username;// Nombre de usuario
 
-private String password;
+private String password;// Contraseña del usuario
  
 @Transient
-private String nuevoNombre;
+private String nuevoNombre; // Nombre temporal para la edición de nombre de usuario
 
+//Getters y setters
 public String getNuevoNombre() {
     return nuevoNombre;
 }
@@ -62,7 +63,7 @@ public String getPassword() {
 public void setPassword(String password) {
 	this.password = password;
 }
-
+//Asignar el rol de ADMIN a un usuario específico, de lo contrario, asignar USER
 @Override
 public Collection<? extends GrantedAuthority> getAuthorities() {
 	ArrayList<SimpleGrantedAuthority> permisos = new ArrayList<SimpleGrantedAuthority>();

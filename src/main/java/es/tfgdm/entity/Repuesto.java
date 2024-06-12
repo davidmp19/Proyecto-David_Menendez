@@ -1,4 +1,4 @@
-package es.tfgdm.repuesto;
+package es.tfgdm.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -9,11 +9,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
-import es.tfgdm.coche.Coche;
-import es.tfgdm.proveedor.Proveedor;
-import es.tfgdm.suministra.Suministra;
-
-
 
 
 @Entity

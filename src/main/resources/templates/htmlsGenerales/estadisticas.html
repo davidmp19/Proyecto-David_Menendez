@@ -129,13 +129,6 @@
 	<div class="container">
 		<div class="header">
 				<h1>Estadísticas</h1>
-				<div th:if="${not #authorization.expression('isAuthenticated()')}">
-				Inicia sesión para imprimir las estadísticas personalizables
-			</div>
-			<div th:if="${#authorization.expression('isAuthenticated()')}">
-				<button class="btn btn-primary">
-					 <i class="bi bi-printer"></i> Imprimir</button>
-			</div>
 		</div>
 		<section class="section">
 			<h2>Repuestos con peso mayor a <span th:text="${pesoMin}">10</span> Kg</h2>
