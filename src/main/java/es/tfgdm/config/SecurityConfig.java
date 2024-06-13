@@ -38,8 +38,7 @@ public class SecurityConfig {
 				.logoutSuccessUrl("/").permitAll().and()
 				// Configuración de las autorizaciones
 				.authorizeRequests(auth -> auth
-						.requestMatchers("/repuestos", "/proveedores", "/coches", "/login", "/", "/usuario/registrar",
-								"/estadisticas")
+						.requestMatchers("/repuestos", "/proveedores", "/coches", "/login", "/", "/usuario/registrar")
 						.permitAll()
 						.requestMatchers("/repuestos/del/**", "/proveedor/del/**", "/suministra/del/**",
 								"/coches/del/**", "/usuario/del/**")
@@ -49,7 +48,7 @@ public class SecurityConfig {
 						.requestMatchers("/repuesto/edit/**", "/proveedor/edit/**", "/coche/edit/**")
 						.hasAuthority("ADMIN").requestMatchers("/suministra", "/usuarios").hasAuthority("ADMIN")
 						.requestMatchers("/repuestos/**", "/proveedores/**", "/coches/**", "buscarRepuesto/**",
-								"/logout")
+								"/logout","/estadisticas")
 						.authenticated().requestMatchers("/usuarios/**").authenticated())
 				// Configuración de la página de acceso denegado
 				.exceptionHandling(exception -> exception.accessDeniedPage("/access-denied")).build();
