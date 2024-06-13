@@ -36,3 +36,17 @@ $ mvn clean package
 ```
 $ mvn spring-boot:run
 ```
+
+## Usuarios y sus roles para poder iniciar sesion
+
+### Admin:
+**Usuario**: david
+**Contraseña**: david
+### Usuarios Rasos
+
+1. **Usuario**: alejandro
+   **Contraseña**: alejandro
+2. **Usuario**: usuario1
+   **Contraseña**: usuario1
+3. **Usuario**: usuario2
+   **Contraseña**: usuario2
