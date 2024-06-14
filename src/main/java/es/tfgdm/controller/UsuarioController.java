@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import es.tfgdm.entity.Usuario;
 import es.tfgdm.service.UsuarioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,24 +32,31 @@ public class UsuarioController {
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);
+
+
 	// Método para mostrar la lista de usuarios
 	@GetMapping("/usuarios")
 	public ModelAndView usuarios() {
+		log.info("Solicitando lista de usuarios");
 		ModelAndView model = new ModelAndView();
 		model.setViewName("usuarios/usuarios");
 		List<Usuario> listaUsuarios = (List<Usuario>) usuarioService.findAll();
 		model.addObject("listaUsuarios", listaUsuarios);
+		log.debug("Número de usuarios encontrados: {}", listaUsuarios.size());
 		return model;
 	}
 
 	// Método para ver los detalles de un usuario por su ID
 	@GetMapping("/usuarios/{id}")
 	public ModelAndView getUsuarioPorId(@PathVariable Long id) {
+		log.info("Solicitando detalles del usuario con ID: {}", id);
 		// Obtener el usuario autenticado actualmente
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuarioAutenticado = (Usuario) auth.getPrincipal();
 		// Verificar si el usuario autenticado tiene permiso para ver el usuario solicitado
 		if (!usuarioAutenticado.getId().equals(id)) {
+			log.warn("El usuario autenticado no tiene permiso para ver el usuario solicitado");
 			return new ModelAndView("redirect:/access-denied");
 		}
 		Usuario usuario = usuarioService.findById(id).orElse(null);
@@ -60,6 +69,7 @@ public class UsuarioController {
 	// Método para mostrar el formulario de registro de un nuevo usuario
 	@GetMapping("/usuario/registrar")
 	public ModelAndView addUsuario() {
+		log.info("Solicitando formulario de registro de nuevo usuario");
 		ModelAndView model = new ModelAndView();
 		model.setViewName("usuarios/registro");
 		model.addObject("usuario", new Usuario());
@@ -69,6 +79,7 @@ public class UsuarioController {
 	// Método para eliminar un usuario por su ID
 	@GetMapping("/usuario/del/{id}")
 	public ModelAndView delUsuario(@PathVariable Long id) {
+		log.info("Eliminando usuario con ID: {}", id);
 		usuarioService.deleteById(id);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("redirect:/usuarios");
@@ -78,6 +89,7 @@ public class UsuarioController {
 	// Método para mostrar el formulario de edición de un usuario por su ID
 	@GetMapping("/usuario/edit/{id}")
 	public ModelAndView editUsuario(@PathVariable Long id) {
+		log.info("Solicitando formulario de edición para el usuario con ID: {}", id);
 		Usuario usuario = usuarioService.findById(id).orElse(null);
 		ModelAndView model = new ModelAndView();
 		model.setViewName("usuarios/usuarioForm");
