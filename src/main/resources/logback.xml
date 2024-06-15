@@ -1,10 +1,10 @@
 <configuration>
-	<property name="LOG_DIR" value="./log" />
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>${LOG_DIR}/tests.log</file>
+		<file>./log/tests.log</file>
 		<append>true</append>
 		<encoder>
 			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+			42647 [http-nio-8080-exec-8] INFO  e.t.controller.UsuarioController - Solicitando lista de usuarios
 		</encoder>
 	</appender>
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -12,9 +12,20 @@
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
-
-	<root level="info">
+	<appender name="FILE2" class="ch.qos.logback.core.FileAppender">
+		<file>./log/tests.log2</file>
+		<append>true</append>
+		<encoder>
+			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+		</encoder>
+	</appender>
+<logger name="es.tfgdm.controller.UsuarioController" level="info">
+	<appender-ref ref="FILE"/>
+</logger>
+<logger name="es.tfgdm.controller.TallerController" level="debug">
+	<appender-ref ref="FILE2"/>
+</logger>
+	<root level="info">	
 		<appender-ref ref="STDOUT"/>
-		<appender-ref ref="FILE"/>
 	</root>
 </configuration>

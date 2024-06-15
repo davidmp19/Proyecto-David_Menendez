@@ -34,7 +34,6 @@ public class UsuarioController {
 
 	private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);
 
-
 	// Método para mostrar la lista de usuarios
 	@GetMapping("/usuarios")
 	public ModelAndView usuarios() {
@@ -54,7 +53,8 @@ public class UsuarioController {
 		// Obtener el usuario autenticado actualmente
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuarioAutenticado = (Usuario) auth.getPrincipal();
-		// Verificar si el usuario autenticado tiene permiso para ver el usuario solicitado
+		// Verificar si el usuario autenticado tiene permiso para ver el usuario
+		// solicitado
 		if (!usuarioAutenticado.getId().equals(id)) {
 			log.warn("El usuario autenticado no tiene permiso para ver el usuario solicitado");
 			return new ModelAndView("redirect:/access-denied");
@@ -90,11 +90,12 @@ public class UsuarioController {
 	@GetMapping("/usuario/edit/{id}")
 	public ModelAndView editUsuario(@PathVariable Long id) {
 		log.info("Solicitando formulario de edición para el usuario con ID: {}", id);
-		Usuario usuario = usuarioService.findById(id).orElse(null);
-		ModelAndView model = new ModelAndView();
-		model.setViewName("usuarios/usuarioForm");
+		ModelAndView model = new ModelAndView("usuarios/usuarioForm");
+		Usuario usuario = usuarioService.findById(id).orElse(new Usuario());
+		UsuarioChangeDTO usuarioChangeDto = new UsuarioChangeDTO();
+		usuarioChangeDto.setNewUsername(usuario.getUsername()); // Establecer el nombre de usuario actual
 		model.addObject("usuario", usuario);
-		model.addObject("usuarioChangeDto", new UsuarioChangeDTO());
+		model.addObject("usuarioChangeDto", usuarioChangeDto); // Agregar usuarioChangeDto al modelo
 		return model;
 	}
 
@@ -126,77 +127,92 @@ public class UsuarioController {
 
 	// Método para actualizar el nombre de usuario
 	@PostMapping("/usuario/updateUsername")
-	public ModelAndView updateUsername(@ModelAttribute @Valid UsuarioChangeDTO usuarioChangeDto,
+	public ModelAndView updateUsername(@ModelAttribute("usuarioChangeDto") @Valid UsuarioChangeDTO usuarioChangeDto,
 			BindingResult bindingResult, @RequestParam Long id) {
 		ModelAndView model = new ModelAndView();
+
+		if (bindingResult.hasErrors()) {
+			// Si hay errores de validación, regresa al formulario de edición
+			model.setViewName("usuarios/usuarioForm");
+			model.addObject("usuario", usuarioService.findById(id).orElse(new Usuario()));
+			return model;
+		}
+
 		Usuario usuario = usuarioService.findById(id).orElse(null);
-		// Verificar si el usuario existe
+
 		if (usuario == null) {
+			// Manejar caso en el que no se encuentre el usuario
 			bindingResult.rejectValue("newUsername", "error.usuarioChangeDto", "Usuario no encontrado");
 			model.setViewName("usuarios/usuarioForm");
 			model.addObject("usuario", new Usuario());
 			return model;
 		}
-		// Verificar si hay errores de validación en el formulario
-		if (bindingResult.hasErrors()) {
-			model.setViewName("usuarios/usuarioForm");
-			model.addObject("usuario", usuario);
-			return model;
-		}
-		// Verificar si el nuevo nombre de usuario ya está en uso
+
 		if (usuarioService.existsByUsername(usuarioChangeDto.getNewUsername())) {
+			// Manejar caso en el que el nuevo nombre de usuario ya esté en uso
 			bindingResult.rejectValue("newUsername", "error.usuarioChangeDto",
 					"El nuevo nombre de usuario ya está en uso");
 			model.setViewName("usuarios/usuarioForm");
 			model.addObject("usuario", usuario);
 			return model;
 		}
-		// Actualizar el nombre de usuario y guardar los cambios
+
+		// Actualizar el nombre de usuario y guardar en la base de datos
 		usuario.setUsername(usuarioChangeDto.getNewUsername());
 		usuarioService.save(usuario);
-		// Redireccionar a la página de inicio
+
+		// Redireccionar a la página principal u otra página deseada después de la
+		// actualización
 		model.setViewName("redirect:/");
 		return model;
 	}
 
 	// Método para actualizar la contraseña del usuario
 	@PostMapping("/usuario/updatePassword")
-	public ModelAndView updatePassword(@ModelAttribute @Valid UsuarioChangeDTO usuarioChangeDto,
-			BindingResult bindingResult, @RequestParam Long id) {
-		ModelAndView model = new ModelAndView();
-		Usuario usuario = usuarioService.findById(id).orElse(null);
-		// Verificar si el usuario existe
-		if (usuario == null) {
-			bindingResult.rejectValue("currentPassword", "error.passwordChangeDto", "Usuario no encontrado");
-			model.setViewName("usuarios/usuarioForm");
-			model.addObject("usuario", new Usuario());
-			return model;
-		}
-		// Verificar si hay errores de validación en el formulario
-		if (bindingResult.hasErrors()) {
-			model.setViewName("usuarios/usuarioForm");
-			model.addObject("usuario", usuario);
-			return model;
-		}
-		// Verificar si la contraseña actual es correcta
-		if (!bCryptPasswordEncoder.matches(usuarioChangeDto.getCurrentPassword(), usuario.getPassword())) {
-			bindingResult.rejectValue("currentPassword", "error.passwordChangeDto", "Contraseña actual incorrecta");
-			model.setViewName("usuarios/usuarioForm");
-			model.addObject("usuario", usuario);
-			return model;
-		}
-		// Verificar si las contraseñas nuevas coinciden
-		if (!usuarioChangeDto.getNewPassword().equals(usuarioChangeDto.getConfirmNewPassword())) {
-			bindingResult.rejectValue("confirmNewPassword", "error.passwordChangeDto", "Las contraseñas no coinciden");
-			model.setViewName("usuarios/usuarioForm");
-			model.addObject("usuario", usuario);
-			return model;
-		}
-		// Codificar la nueva contraseña y guardar los cambios
-		usuario.setPassword(bCryptPasswordEncoder.encode(usuarioChangeDto.getNewPassword()));
-		usuarioService.save(usuario);
-		// Redireccionar a la página de inicio
-		model.setViewName("redirect:/");
-		return model;
+	public ModelAndView updatePassword(@ModelAttribute("usuarioChangeDto") @Valid UsuarioChangeDTO usuarioChangeDto,
+	        BindingResult bindingResult, @RequestParam Long id) {
+	    ModelAndView model = new ModelAndView();
+
+	    // Buscar al usuario por su ID
+	    Usuario usuario = usuarioService.findById(id).orElse(null);
+
+	    // Verificar si el usuario existe
+	    if (usuario == null) {
+	        bindingResult.rejectValue("currentPassword", "error.passwordChangeDto", "Usuario no encontrado");
+	        model.setViewName("usuarios/usuarioForm");
+	        model.addObject("usuario", new Usuario());
+	        return model;
+	    }
+
+	    // Verificar si la contraseña actual es correcta
+	    if (!bCryptPasswordEncoder.matches(usuarioChangeDto.getCurrentPassword(), usuario.getPassword())) {
+	        bindingResult.rejectValue("currentPassword", "error.passwordChangeDto", "Contraseña actual incorrecta");
+	        model.setViewName("usuarios/usuarioForm");
+	        model.addObject("usuario", usuario);
+	        return model;
+	    }
+
+	    // Verificar si las contraseñas nuevas coinciden
+	    if (!usuarioChangeDto.getNewPassword().equals(usuarioChangeDto.getConfirmNewPassword())) {
+	        bindingResult.rejectValue("confirmNewPassword", "error.passwordChangeDto", "Las contraseñas no coinciden");
+	        model.setViewName("usuarios/usuarioForm");
+	        model.addObject("usuario", usuario);
+	        return model;
+	    }
+
+	    // Verificar si hay errores de validación en el formulario
+	    if (bindingResult.hasErrors()) {
+	        model.setViewName("usuarios/usuarioForm");
+	        model.addObject("usuario", usuario);
+	        return model;
+	    }
+
+	    // Codificar la nueva contraseña y guardar los cambios
+	    usuario.setPassword(bCryptPasswordEncoder.encode(usuarioChangeDto.getNewPassword()));
+	    usuarioService.save(usuario);
+
+	    // Redireccionar a la página de inicio
+	    model.setViewName("redirect:/");
+	    return model;
 	}
 }

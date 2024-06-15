@@ -26,7 +26,7 @@
 									<p class="alert alert-danger" role="alert">Hay errores en el formulario, por favor
 										revisa los campos.</p>
 								</div>
-								<form th:action="@{/usuario/save}" th:object="${usuario}" method="post">
+								<form id="registro" th:action="@{/usuario/save}" th:object="${usuario}" method="post">
 									<div data-mdb-input-init class="form-outline form-white mb-4">
 										<input type="text" th:field="*{username}" id="username"
 											class="form-control form-control-lg" required minlength="3" maxlength="20"/>
@@ -63,6 +63,18 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		 <script>
+         document.getElementById('registro').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var form = this;
+ 
+            var isSuccess = true;
+            if (isSuccess) {
+                window.alert('¡Cuenta creada exitosamente!');
+                form.submit();
+            }
+        });
+    </script>
 </body>
 
 </html>

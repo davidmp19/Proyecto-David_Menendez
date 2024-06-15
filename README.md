@@ -18,9 +18,9 @@
 ## Instrucciones
 ### Clonar el proyecto
 ```
-$ git clone https://github.com/davidmp19/Proyecto-David_Menendez
+git clone https://github.com/davidmp19/Proyecto-David_Menendez
 ```
-### Arrancar las base de datos: [repositorio](https://github.com/davidmp19/Docker)
+### Arrancar la base de datos: [repositorio](https://github.com/davidmp19/Docker)
 
 ### (Método 1) Abrir el proyecto con el IDE deseado:
 - Esperar a que se descarguen las dependecias de maven.
@@ -30,7 +30,7 @@ $ git clone https://github.com/davidmp19/Proyecto-David_Menendez
  
 #### Iniciar el proyecto:
 ```
-$ mvn spring-boot:run
+mvn spring-boot:run
 ```
 
 ## Usuarios y sus roles para poder iniciar sesion

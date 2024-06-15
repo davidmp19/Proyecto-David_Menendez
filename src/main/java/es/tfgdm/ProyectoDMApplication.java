@@ -10,8 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProyectoDMApplication {
 	private static final Logger logger
 			= LoggerFactory.getLogger(ProyectoDMApplication.class);
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		SpringApplication.run(ProyectoDMApplication.class, args);
+		logger.warn("Aplicacion arrancada");
 	}
 
 }

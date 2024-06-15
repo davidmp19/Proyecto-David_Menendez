@@ -99,11 +99,19 @@
                         No hay suministros disponibles.
                     </div>
                 </div>
+                <div class="mt-3">
+                <a class="btn btn-warning" th:href="@{/suministra/add}">
+                    <i class="bi bi-plus-circle-fill"></i> Relacionar repuesto y proveedor
+                </a>
+            </div>
+            <br>
                 <table class="table table-sm table-hover" th:if="${!#lists.isEmpty(listaSuministra)}">
                     <thead class="table-light text-center">
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">IDRelacion</th>
+                             <th scope="col">Id Repuesto</th>
                             <th scope="col">Repuesto</th>
+                            <th scope="col">Id Proveedor</th>
                             <th scope="col">Proveedor</th>
                             <th scope="col">Eliminar</th>
                         </tr>
@@ -113,25 +121,26 @@
                             <th scope="row">
                                 <span th:text="${suministra.id}"></span>
                             </th>
+                             <td>
+                                <span th:text="${suministra.repuesto.id}"></span>
+                            </td>
                             <td>
                                 <span th:text="${suministra.repuesto.nombre}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${suministra.proveedor.dni}"></span>
                             </td>
                             <td>
                                 <span th:text="${suministra.proveedor.nombre}"></span>
                             </td>
                             <td>
                                 <a class="btn btn-danger" th:href="@{/suministra/del/{id}(id=${suministra.id})}">
-                                    <i class="bi bi-trash-fill"></i> Eliminar
+                                    <i class="bi bi-trash-fill"></i> 
                                 </a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="col-12 text-end mt-3">
-                <a class="btn btn-warning" th:href="@{/suministra/add}">
-                    <i class="bi bi-plus-circle-fill"></i> Relacionar repuesto y proveedor
-                </a>
             </div>
         </div>
     </div>

@@ -83,42 +83,49 @@
 		<form th:action="@{/usuario/updateUsername}" th:object="${usuarioChangeDto}" method="post">
 			<input type="hidden" name="id" th:value="${usuario.id}" />
 			<div class="mb-3">
-				<label for="newUsername" class="form-label">Nuevo Nombre de Usuario:</label>
-				<input type="text" class="form-control" th:field="*{newUsername}" id="newUsername"
-					placeholder="Nuevo nombre de usuario" required minlength="3" maxlength="20">
-				<div th:if="${#fields.hasErrors('newUsername')}" th:errors="*{newUsername}" class="text-danger"></div>
+				<label for="newUsername" class="form-label">Nombre de usuario:</label>
+				<input type="text" class="form-control" th:field="*{newUsername}" id="newUsername" required
+					minlength="3" maxlength="20">
+				<div th:if="${#fields.hasErrors('newUsername')}" th:errors="*{newUsername}" class="text-danger">
+				</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Actualizar Nombre</button>
-		</form> 
-		<h2>Cambiar Contraseña</h2> 
-
+			<button type="submit" class="btn btn-primary">Actualizar nombre</button>
+		</form>
+		<br>
+		<h2>Cambiar contraseña</h2>
 		<form th:action="@{/usuario/updatePassword}" th:object="${usuarioChangeDto}" method="post">
 			<input type="hidden" name="id" th:value="${usuario.id}" />
+
 			<div class="mb-3">
-				<label for="currentPassword" class="form-label">Contraseña Actual:</label>
+				<label for="currentPassword" class="form-label">Contraseña actual:</label>
 				<input type="password" class="form-control" th:field="*{currentPassword}" id="currentPassword"
 					placeholder="Contraseña actual" required minlength="3" maxlength="20">
 				<div th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}" class="text-danger">
 				</div>
 			</div>
+
 			<div class="mb-3">
-				<label for="newPassword" class="form-label">Nueva Contraseña:</label>
+				<label for="newPassword" class="form-label">Nueva contraseña:</label>
 				<input type="password" class="form-control" th:field="*{newPassword}" id="newPassword"
 					placeholder="Nueva contraseña" required minlength="3" maxlength="20">
 				<div th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}" class="text-danger"></div>
 			</div>
+
 			<div class="mb-3">
-				<label for="confirmNewPassword" class="form-label">Confirmar Nueva Contraseña:</label>
+				<label for="confirmNewPassword" class="form-label">Confirmar nueva contraseña:</label>
 				<input type="password" class="form-control" th:field="*{confirmNewPassword}" id="confirmNewPassword"
 					placeholder="Confirmar nueva contraseña" required minlength="3" maxlength="20">
 				<div th:if="${#fields.hasErrors('confirmNewPassword')}" th:errors="*{confirmNewPassword}"
 					class="text-danger"></div>
 			</div>
+
 			<button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
 		</form>
 		<br>
 		<a th:href="@{~/usuarios/{id}(id=${usuario.id})}" class="btn btn-primary">Volver</a>
+		<br>
 	</div>
+	<br>
 	<script src="/js/toggle.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
